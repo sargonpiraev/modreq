@@ -13,6 +13,12 @@ stats.html
 stats-*.json
 .wxt
 web-ext.config.ts
+.screenshots-profile/
+
+# CWS listing build outputs — npm run screenshots / promo-tiles / render:video
+store/chrome/screenshot-*.png
+store/chrome/promo-tile-*.png
+store/chrome/modreq-flow.mp4
 
 # Secrets
 .env

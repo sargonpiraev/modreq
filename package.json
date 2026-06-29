@@ -7,7 +7,10 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "screenshots": "turbo run screenshots --filter=wuiapp",
+    "promo-tiles": "turbo run promo-tiles --filter=wuiapp",
+    "render:video": "turbo run render --filter=vidapp"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.1",

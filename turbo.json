@@ -19,6 +19,16 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "screenshots": {
+      "cache": false
+    },
+    "promo-tiles": {
+      "cache": false
+    },
+    "render": {
+      "cache": false,
+      "outputs": ["../extapp/store/chrome/**"]
     }
   }
 }
