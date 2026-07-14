@@ -25,7 +25,7 @@ export async function applyHeaderRules(rules: HeaderRule[]) {
         requestHeaders: [
           {
             header: rule.name.trim(),
-            operation: 'append' as const,
+            operation: 'set' as const,
             value: rule.value,
           },
         ],
@@ -36,8 +36,13 @@ export async function applyHeaderRules(rules: HeaderRule[]) {
       },
     }));
 
-  await browser.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds,
-    addRules,
-  });
+  try {
+    await browser.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds,
+      addRules,
+    });
+  } catch (error) {
+    console.error('[modreq] failed to apply header rules', error);
+    throw error;
+  }
 }

@@ -66,7 +66,10 @@ function App() {
       onCookiesChange={setCookies}
       onViewChange={setView}
       onStartNewModification={startNewModification}
-      onApplyCookies={() => browser.runtime.sendMessage({ type: 'applyCookies' })}
+      onApplyCookies={async () => {
+        await cookieRules.setValue(cookies);
+        await browser.runtime.sendMessage({ type: 'applyCookies' });
+      }}
     />
   );
 }
