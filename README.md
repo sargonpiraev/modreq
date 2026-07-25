@@ -9,7 +9,7 @@ Chrome extension to modify HTTP request headers and cookies — replace or appen
 | App | Role |
 | --- | --- |
 | `apps/extapp` | WXT MV3 extension |
-| `apps/webapp` | Product landing (Next.js → Vercel) |
+| `apps/webapp` | Product landing (Next.js → GitHub Pages) |
 | `apps/wuiapp` | Storybook + store screenshot/promo generation |
 | `apps/vidapp` | Remotion promo video |
 
@@ -34,3 +34,17 @@ npm run render:video
 ```sh
 npm run build
 ```
+
+## Landing (GitHub Pages)
+
+Static Next.js export (`output: 'export'`). Site URL after Pages is enabled:
+
+https://sargonpiraev.github.io/modreq/
+
+```sh
+npm run build --workspace=webapp
+# artifacts in apps/webapp/out
+```
+
+Deploy: GitHub Actions workflow `.github/workflows/deploy-webapp.yml` on push to `main`.  
+In the repo: **Settings → Pages → Source = GitHub Actions**.

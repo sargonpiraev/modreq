@@ -3,25 +3,28 @@ import Image from 'next/image';
 const CHROME_STORE_URL =
   'https://chromewebstore.google.com/detail/modreq/calgkmpccmankefjidecombecabommmm';
 
+/** Match next.config `basePath` — next/image does not always prefix static public paths. */
+const BASE_PATH = process.env.NODE_ENV === 'production' ? '/modreq' : '';
+
 const screenshots = [
   {
-    src: '/screenshots/screenshot-1280x800-pick-modification-type.png',
+    src: `${BASE_PATH}/screenshots/screenshot-1280x800-pick-modification-type.png`,
     alt: 'Pick a modification type in modreq',
   },
   {
-    src: '/screenshots/screenshot-1280x800-header-editor.png',
+    src: `${BASE_PATH}/screenshots/screenshot-1280x800-header-editor.png`,
     alt: 'Header editor with Replace and Append modes',
   },
   {
-    src: '/screenshots/screenshot-1280x800-header-rule.png',
+    src: `${BASE_PATH}/screenshots/screenshot-1280x800-header-rule.png`,
     alt: 'Active request header rule',
   },
   {
-    src: '/screenshots/screenshot-1280x800-cookie-rule.png',
+    src: `${BASE_PATH}/screenshots/screenshot-1280x800-cookie-rule.png`,
     alt: 'Active cookie override rule',
   },
   {
-    src: '/screenshots/screenshot-1280x800-header-and-cookie-rules.png',
+    src: `${BASE_PATH}/screenshots/screenshot-1280x800-header-and-cookie-rules.png`,
     alt: 'Header and cookie rules together',
   },
 ] as const;
