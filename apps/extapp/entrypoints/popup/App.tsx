@@ -17,7 +17,12 @@ function App() {
   useEffect(() => {
     void Promise.all([headerRules.getValue(), cookieRules.getValue()]).then(
       ([nextHeaders, nextCookies]) => {
-        setHeaders(nextHeaders);
+        setHeaders(
+          nextHeaders.map((rule) => ({
+            ...rule,
+            operation: rule.operation ?? 'set',
+          })),
+        );
         setCookies(nextCookies);
         setLoaded(true);
       },
@@ -45,7 +50,7 @@ function App() {
       const id = createId();
       setHeaders((current) => [
         ...current,
-        { id, enabled: true, name: '', value: '', urlFilter: '*' },
+        { id, enabled: true, name: '', value: '', operation: 'set', urlFilter: '*' },
       ]);
       setView({ kind: 'edit-header', ruleId: id });
       return;

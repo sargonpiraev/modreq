@@ -8,6 +8,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "test": "turbo run test",
+    "e2e": "npm run e2e --workspace=extapp",
     "screenshots": "turbo run screenshots --filter=wuiapp",
     "promo-tiles": "turbo run promo-tiles --filter=wuiapp",
     "render:video": "turbo run render --filter=vidapp",

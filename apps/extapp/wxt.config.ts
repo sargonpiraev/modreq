@@ -19,4 +19,7 @@ export default defineConfig({
         "script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'self';",
     },
   },
+  webExt: {
+    startUrls: ['https://httpbingo.org/headers'],
+  },
 });

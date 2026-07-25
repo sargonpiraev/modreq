@@ -40,6 +40,7 @@ export function getFlowState(frame: number): FlowState {
           enabled: true,
           name: typeText(headerTarget.name, 72, 98, frame),
           value: typeText(headerTarget.value, 102, 135, frame),
+          operation: 'set',
           urlFilter: '*',
         },
       ],
@@ -50,6 +51,7 @@ export function getFlowState(frame: number): FlowState {
   const savedHeader: HeaderRule = {
     id: HEADER_ID,
     enabled: true,
+    operation: 'set',
     ...headerTarget,
   };
 

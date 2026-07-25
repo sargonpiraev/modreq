@@ -14,6 +14,8 @@
     "compile": "tsc --noEmit",
     "check-types": "tsc --noEmit",
     "test": "tsc --noEmit",
+    "e2e": "npm run build && playwright test",
+    "e2e:ui": "npm run build && playwright test --ui",
     "submit": "wxt submit --chrome-zip .output/*-chrome.zip",
     "validate:store": "tsx scripts/validate-store-assets.ts",
     "postinstall": "wxt prepare"
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "@googleapis/chromewebstore": "^3.0.0",
+    "@playwright/test": "^1.61.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@wxt-dev/module-react": "^1.1.5",

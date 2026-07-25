@@ -31,7 +31,14 @@ function ModreqStory({
         if (type === 'header') {
           setHeaders((current) => [
             ...current,
-            { id: crypto.randomUUID(), enabled: true, name: '', value: '', urlFilter: '*' },
+            {
+              id: crypto.randomUUID(),
+              enabled: true,
+              name: '',
+              value: '',
+              operation: 'set',
+              urlFilter: '*',
+            },
           ]);
           return;
         }

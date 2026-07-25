@@ -13,8 +13,14 @@ import { Button } from './components/button';
 import { Input } from './components/input';
 import { Label } from './components/label';
 import { Switch } from './components/switch';
+import { Tabs, TabsList, TabsTrigger } from './components/tabs';
+import { isAppendableRequestHeader } from './lib/append-headers';
 import { cn } from './lib/utils';
-import type { CookieRule, HeaderRule } from './lib/types';
+import type { CookieRule, HeaderOperation, HeaderRule } from './lib/types';
+
+function headerOperationLabel(operation: HeaderOperation | undefined) {
+  return operation === 'append' ? 'Append' : 'Replace';
+}
 
 export type ModreqView =
   | { kind: 'home' }
@@ -90,7 +96,7 @@ export function ModreqPopup({
           <TypeOption
             icon={Globe}
             title="Request headers"
-            description="Append a header to matching requests"
+            description="Replace or append a header on matching requests"
             flowTarget="pick-header"
             onClick={() => onStartNewModification('header')}
           />
@@ -107,6 +113,14 @@ export function ModreqPopup({
   }
 
   if (view.kind === 'edit-header' && editingHeader) {
+    const operation = editingHeader.operation ?? 'set';
+    const headerName = editingHeader.name.trim();
+    const showAppendHint = operation === 'append';
+    const showAppendWarning =
+      operation === 'append' &&
+      headerName.length > 0 &&
+      !isAppendableRequestHeader(headerName);
+
     return (
       <PopupFrame
         header={
@@ -125,20 +139,53 @@ export function ModreqPopup({
         }
       >
         <SectionIntro
-          title="Append header"
-          description="This header will be added to every matching request."
+          title="Request header"
+          description={
+            operation === 'append'
+              ? 'Append this value to the header on matching requests.'
+              : 'Replace this header on every matching request.'
+          }
         />
         <RuleEditorFields className="mt-6">
+          <Field label="Mode" htmlFor="header-operation">
+            <Tabs
+              value={operation}
+              onValueChange={(nextOperation) =>
+                updateHeader(editingHeader.id, {
+                  operation: nextOperation as HeaderOperation,
+                })
+              }
+            >
+              <TabsList id="header-operation">
+                <TabsTrigger value="set">Replace</TabsTrigger>
+                <TabsTrigger value="append">Append</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            {showAppendHint ? (
+              <p className="text-xs leading-5 text-muted-foreground">
+                Append works only for Chrome-allowlisted headers (cookie, accept,
+                user-agent, x-forwarded-for, …). Use Replace for custom{' '}
+                <span className="font-medium text-foreground">X-*</span> headers.
+              </p>
+            ) : null}
+          </Field>
           <Field label="Header name" htmlFor="header-name">
             <Input
               id="header-name"
               className="h-10"
-              placeholder="X-Forwarded-For"
+              placeholder={operation === 'append' ? 'cookie' : 'X-Forwarded-For'}
               value={editingHeader.name}
               onChange={(event) =>
                 updateHeader(editingHeader.id, { name: event.target.value })
               }
             />
+            {showAppendWarning ? (
+              <p className="text-xs leading-5 text-amber-700 dark:text-amber-400">
+                Chrome won’t append{' '}
+                <span className="font-medium">{headerName}</span>. Switch to
+                Replace.
+              </p>
+            ) : null}
           </Field>
           <Field label="Header value" htmlFor="header-value">
             <Input
@@ -263,7 +310,7 @@ export function ModreqPopup({
                 key={rule.id}
                 enabled={rule.enabled}
                 primary={rule.name || 'Unnamed header'}
-                secondary={rule.value || 'No value'}
+                secondary={`${headerOperationLabel(rule.operation)} · ${rule.value || 'No value'}`}
                 onToggle={(enabled) => updateHeader(rule.id, { enabled })}
                 onOpen={() => onViewChange({ kind: 'edit-header', ruleId: rule.id })}
                 onDelete={() =>

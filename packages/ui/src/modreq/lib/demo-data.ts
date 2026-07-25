@@ -5,6 +5,7 @@ export const demoHeader: HeaderRule = {
   enabled: true,
   name: 'X-Debug-Token',
   value: 'modreq-demo',
+  operation: 'set',
 };
 
 export const demoCookie: CookieRule = {

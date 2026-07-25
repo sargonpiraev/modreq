@@ -99,7 +99,7 @@ function MarqueePromoTile() {
           Modify HTTP request headers and cookies without leaving the browser
         </p>
         <ul className="mt-8 space-y-2 text-lg text-muted-foreground">
-          <li>Append custom headers to any request</li>
+          <li>Replace or append headers on any request</li>
           <li>Replace cookies per site</li>
           <li>Toggle rules on and off instantly</li>
         </ul>

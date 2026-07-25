@@ -25,7 +25,7 @@ export async function applyHeaderRules(rules: HeaderRule[]) {
         requestHeaders: [
           {
             header: rule.name.trim(),
-            operation: 'set' as const,
+            operation: rule.operation ?? 'set',
             value: rule.value,
           },
         ],
