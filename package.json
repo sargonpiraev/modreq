@@ -9,8 +9,9 @@
     "check-types": "turbo run check-types",
     "test": "turbo run test",
     "e2e": "npm run e2e --workspace=extapp",
-    "screenshots": "turbo run screenshots --filter=wuiapp",
-    "promo-tiles": "turbo run promo-tiles --filter=wuiapp",
+    "screenshots": "npm run screenshots --workspace=imgapp --",
+    "promo-tiles": "npm run promo-tiles --workspace=imgapp --",
+    "shots": "npm run shots --workspace=imgapp --",
     "render:video": "turbo run render --filter=vidapp",
     "prepare": "lefthook install"
   },

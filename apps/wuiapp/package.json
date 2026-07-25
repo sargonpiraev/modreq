@@ -9,9 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "screenshots": "tsx scripts/generate-screenshots.ts",
-    "promo-tiles": "tsx scripts/generate-promo-tiles.ts"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@repo/ui": "*",

@@ -10,7 +10,8 @@ Chrome extension to modify HTTP request headers and cookies — replace or appen
 | --- | --- |
 | `apps/extapp` | WXT MV3 extension |
 | `apps/webapp` | Product landing (Next.js → GitHub Pages) |
-| `apps/wuiapp` | Storybook + store screenshot/promo generation |
+| `apps/wuiapp` | Storybook (UI stories for store creatives) |
+| `apps/imgapp` | Playwright stills → store screenshots / promo tiles |
 | `apps/vidapp` | Remotion promo video |
 
 ## Develop
@@ -23,9 +24,12 @@ npm run dev --workspace=webapp
 
 ## Store assets
 
+Stories live in `wuiapp`; capture runs in `imgapp` (needs Chromium + ImageMagick `magick`).
+
 ```sh
 npm run screenshots
 npm run promo-tiles
+npm run shots
 npm run render:video
 ```
 

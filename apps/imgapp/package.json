@@ -1,0 +1,19 @@
+{
+  "name": "imgapp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "shots": "tsx src/run.ts",
+    "screenshots": "tsx src/run.ts screenshots",
+    "promo-tiles": "tsx src/run.ts promo-tiles",
+    "check-types": "tsc --noEmit",
+    "test": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "playwright": "^1.61.1",
+    "tsx": "^4.21.0",
+    "typescript": "~6.0.2"
+  }
+}
