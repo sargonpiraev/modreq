@@ -20,6 +20,32 @@ const storeConfig = {
     skipReview: true,
   },
   storeListing: {
+    /**
+     * Paste these into Chrome Web Store Developer Dashboard (no listing API).
+     * Title/short description also ship via manifest on zip submit.
+     */
+    copy: {
+      name: 'modreq - Modify HTTP Headers',
+      shortDescription:
+        'Modify HTTP request headers and cookies. Replace or append headers, override cookies. Free ModHeader alternative.',
+      detailedDescription: `modreq is a free Chrome extension to modify HTTP request headers and cookies — a simple ModHeader alternative for developers and QA.
+
+Replace or append request headers on matching traffic. Override cookie values on the site in your active tab. Toggle rules on or off instantly. Everything stays local in your browser — no account, no cloud sync, no tracking.
+
+Features:
+• Replace or append HTTP request headers (Authorization, X-Forwarded-For, custom headers, and more)
+• Override cookies on the current site without DevTools gymnastics
+• Enable/disable each rule with one click
+• Lightweight MV3 extension — rules apply via declarativeNetRequest
+
+Use cases:
+• Test APIs with custom Authorization or feature-flag headers
+• Debug CORS / proxy scenarios with X-Forwarded-For
+• Swap session cookies between environments
+• Quickly A/B header values while browsing
+
+Privacy: all rules are stored locally. modreq does not collect or send your data.`,
+    },
     graphicAssets: {
       storeIcon: {
         source: 'store/chrome/store-icon-128.png',
@@ -28,16 +54,16 @@ const storeConfig = {
         noAlpha: false,
       },
       screenshots: [
-        // Empty home — CTA «Add modification»
+        // Choose modification type — headers vs cookies
         {
-          source: 'store/chrome/screenshot-1280x800-empty-home.png',
+          source: 'store/chrome/screenshot-1280x800-pick-modification-type.png',
           width: 1280,
           height: 800,
           noAlpha: true,
         },
-        // Choose modification type — headers vs cookies
+        // Header editor — Replace / Append modes
         {
-          source: 'store/chrome/screenshot-1280x800-pick-modification-type.png',
+          source: 'store/chrome/screenshot-1280x800-header-editor.png',
           width: 1280,
           height: 800,
           noAlpha: true,
@@ -64,6 +90,9 @@ const storeConfig = {
           noAlpha: true,
         },
       ],
+      promoVideo: {
+        youtubeUrl: 'https://youtu.be/dzVhPmqZAQ8',
+      },
       smallPromoTile: {
         source: 'store/chrome/promo-tile-small-440x280.png',
         width: 440,

@@ -49,7 +49,15 @@ const PromoVideo = z.object({
   youtubeUrl: z.string().url().regex(/youtube\.com|youtu\.be/, 'must be a YouTube URL'),
 });
 
+const ListingCopy = z.object({
+  name: z.string().min(1).max(45),
+  shortDescription: z.string().min(1).max(132),
+  detailedDescription: z.string().min(1),
+});
+
 export const StoreListingSchema = z.object({
+  /** Dashboard-only text fields (Chrome Web Store has no listing write API). */
+  copy: ListingCopy.optional(),
   graphicAssets: z.object({
     storeIcon: StoreIcon,
     screenshots: z.array(Screenshot).min(1).max(5),

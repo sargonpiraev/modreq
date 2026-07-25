@@ -1,6 +1,6 @@
 {
   "name": "extapp",
-  "description": "manifest.json description",
+  "description": "Modify HTTP request headers and cookies. Replace or append headers, override cookies. Free ModHeader alternative.",
   "private": true,
   "version": "1.2.0",
   "type": "module",

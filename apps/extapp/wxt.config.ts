@@ -11,7 +11,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   }),
   manifest: {
-    name: 'modreq',
+    name: 'modreq - Modify HTTP Headers',
+    description:
+      'Modify HTTP request headers and cookies. Replace or append headers, override cookies. Free ModHeader alternative.',
     permissions: ['declarativeNetRequest', 'cookies', 'storage', 'tabs'],
     host_permissions: ['<all_urls>'],
     content_security_policy: {

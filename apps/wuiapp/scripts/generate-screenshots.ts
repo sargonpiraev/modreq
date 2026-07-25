@@ -12,14 +12,14 @@ const outDir = resolve(appDir, '../extapp/store/chrome');
 /** Must match store.config.ts → storeListing.graphicAssets.screenshots[].source */
 const screenshots = [
   {
-    file: 'screenshot-1280x800-empty-home',
-    storyId: 'store-screenshots--home',
-    waitFor: 'No modifications yet',
-  },
-  {
     file: 'screenshot-1280x800-pick-modification-type',
     storyId: 'store-screenshots--pick-type',
     waitFor: 'What do you want to change?',
+  },
+  {
+    file: 'screenshot-1280x800-header-editor',
+    storyId: 'store-screenshots--header-editor',
+    waitFor: 'Header name',
   },
   {
     file: 'screenshot-1280x800-header-rule',

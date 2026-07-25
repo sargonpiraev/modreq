@@ -69,6 +69,14 @@ export const PickType: Story = {
   args: { initialHeaders: [], initialCookies: [], initialView: { kind: 'pick-type' } },
 };
 
+export const HeaderEditor: Story = {
+  args: {
+    initialHeaders: [demoHeader],
+    initialCookies: [],
+    initialView: { kind: 'edit-header', ruleId: demoHeader.id },
+  },
+};
+
 export const HeaderApplied: Story = {
   args: { initialHeaders: [demoHeader], initialCookies: [], initialView: { kind: 'home' } },
 };

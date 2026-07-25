@@ -68,7 +68,7 @@ function SmallPromoTile() {
       <div className="min-w-0 flex-1">
         <p className="text-xl font-semibold tracking-tight">modreq</p>
         <p className="mt-1 text-xs leading-snug text-muted-foreground">
-          Modify request headers and cookies on the fly
+          Modify HTTP headers & cookies — free ModHeader alternative
         </p>
       </div>
     </div>
