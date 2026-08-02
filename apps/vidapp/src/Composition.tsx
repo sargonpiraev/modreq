@@ -25,9 +25,13 @@ export const MyComposition: React.FC = () => {
           loaded
           headers={headers}
           cookies={cookies}
+          redirects={[]}
+          responseHeaders={[]}
           view={view}
           onHeadersChange={noop}
           onCookiesChange={noop}
+          onRedirectsChange={noop}
+          onResponseHeadersChange={noop}
           onViewChange={noop}
           onStartNewModification={noop}
         />

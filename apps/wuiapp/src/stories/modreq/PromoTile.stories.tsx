@@ -4,10 +4,13 @@ import { useState } from 'react';
 import { ModreqPopup, type ModreqView } from '@repo/ui/modreq/popup';
 import { demoCookie, demoHeader } from '@repo/ui/modreq/demo-data';
 import { MODREQ_POPUP_HEIGHT, MODREQ_POPUP_WIDTH } from '@repo/ui/modreq/layout';
+import type { RedirectRule, ResponseHeaderRule } from '@repo/ui/modreq/types';
 
 function PopupDemo() {
   const [headers, setHeaders] = useState([demoHeader]);
   const [cookies, setCookies] = useState([demoCookie]);
+  const [redirects, setRedirects] = useState<RedirectRule[]>([]);
+  const [responseHeaders, setResponseHeaders] = useState<ResponseHeaderRule[]>([]);
   const [view, setView] = useState<ModreqView>({ kind: 'home' });
 
   return (
@@ -15,9 +18,13 @@ function PopupDemo() {
       loaded
       headers={headers}
       cookies={cookies}
+      redirects={redirects}
+      responseHeaders={responseHeaders}
       view={view}
       onHeadersChange={setHeaders}
       onCookiesChange={setCookies}
+      onRedirectsChange={setRedirects}
+      onResponseHeadersChange={setResponseHeaders}
       onViewChange={setView}
       onStartNewModification={() => {}}
     />
