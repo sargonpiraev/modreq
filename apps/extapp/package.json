@@ -16,7 +16,7 @@
     "test": "tsc --noEmit",
     "e2e": "npm run build && playwright test",
     "e2e:ui": "npm run build && playwright test --ui",
-    "submit": "wxt submit --chrome-zip .output/*-chrome.zip",
+    "submit": "wxt submit --chrome-zip .output/extapp-$npm_package_version-chrome.zip",
     "validate:store": "tsx scripts/validate-store-assets.ts",
     "postinstall": "wxt prepare"
   },
