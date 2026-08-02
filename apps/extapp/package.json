@@ -2,7 +2,7 @@
   "name": "extapp",
   "description": "Modify HTTP request headers and cookies. Replace or append headers, override cookies. Free ModHeader alternative.",
   "private": true,
-  "version": "1.6.0",
+  "version": "1.6.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
