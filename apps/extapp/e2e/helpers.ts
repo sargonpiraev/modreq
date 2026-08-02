@@ -4,6 +4,10 @@ import { expect } from './fixtures';
 
 export const ECHO_HEADERS_URL = 'https://httpbingo.org/headers';
 export const ECHO_COOKIES_URL = 'https://httpbingo.org/cookies';
+export const ECHO_GET_URL = 'https://httpbingo.org/get';
+/** Unique path used as redirect source in e2e (must not collide with other tests). */
+export const ECHO_REDIRECT_SOURCE_URL =
+  'https://httpbingo.org/anything/modreq-redirect-source';
 
 export type EchoHeadersResponse = {
   headers: Record<string, string | string[]>;
@@ -60,6 +64,54 @@ export async function fillNewCookieRule(
   await popup.locator('[data-flow-target="pick-cookie"]').click();
   await popup.locator('#cookie-name').fill(name);
   await popup.locator('#cookie-value').fill(value);
+}
+
+export async function addRedirectRule(
+  popup: Page,
+  {
+    urlFilter,
+    redirectUrl,
+  }: {
+    urlFilter: string;
+    redirectUrl: string;
+  },
+) {
+  await popup.getByRole('button', { name: 'Add modification' }).click();
+  await popup.locator('[data-flow-target="pick-redirect"]').click();
+  await popup.locator('#redirect-filter').fill(urlFilter);
+  await popup.locator('#redirect-url').fill(redirectUrl);
+  await popup.locator('[data-flow-target="editor-done"]').click();
+  await expect(popup.getByText(urlFilter, { exact: true })).toBeVisible();
+}
+
+export async function addResponseHeaderRule(
+  popup: Page,
+  {
+    name,
+    value,
+    urlFilter = '*',
+    operation = 'set',
+  }: {
+    name: string;
+    value: string;
+    urlFilter?: string;
+    operation?: 'set' | 'append';
+  },
+) {
+  await popup.getByRole('button', { name: 'Add modification' }).click();
+  await popup.locator('[data-flow-target="pick-response-header"]').click();
+
+  if (operation === 'append') {
+    await popup.getByRole('tab', { name: 'Append' }).click();
+  } else {
+    await popup.getByRole('tab', { name: 'Replace' }).click();
+  }
+
+  await popup.locator('#response-header-name').fill(name);
+  await popup.locator('#response-header-value').fill(value);
+  await popup.locator('#response-header-filter').fill(urlFilter);
+  await popup.locator('[data-flow-target="editor-done"]').click();
+  await expect(popup.getByText(name, { exact: true })).toBeVisible();
 }
 
 export function headerValues(headers: EchoHeadersResponse['headers'], name: string) {

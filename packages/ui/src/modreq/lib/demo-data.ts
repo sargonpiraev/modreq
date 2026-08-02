@@ -1,4 +1,9 @@
-import type { CookieRule, HeaderRule } from './types';
+import type {
+  CookieRule,
+  HeaderRule,
+  RedirectRule,
+  ResponseHeaderRule,
+} from './types';
 
 export const demoHeader: HeaderRule = {
   id: 'demo-header',
@@ -13,4 +18,20 @@ export const demoCookie: CookieRule = {
   enabled: true,
   name: 'session',
   value: 'replaced-value',
+};
+
+export const demoRedirect: RedirectRule = {
+  id: 'demo-redirect',
+  enabled: true,
+  urlFilter: '*://api.prod.example/*',
+  redirectUrl: 'https://api.staging.example/',
+};
+
+export const demoResponseHeader: ResponseHeaderRule = {
+  id: 'demo-response-header',
+  enabled: true,
+  name: 'Access-Control-Allow-Origin',
+  value: '*',
+  operation: 'set',
+  urlFilter: '*',
 };

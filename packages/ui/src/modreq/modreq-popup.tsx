@@ -1,10 +1,12 @@
 import { type ReactNode } from 'react';
 import {
   ArrowLeft,
+  ArrowLeftRight,
   ChevronRight,
   Cookie,
   Globe,
   Plus,
+  Server,
   Trash2,
   Wrench,
 } from 'lucide-react';
@@ -16,7 +18,13 @@ import { Switch } from './components/switch';
 import { Tabs, TabsList, TabsTrigger } from './components/tabs';
 import { isAppendableRequestHeader } from './lib/append-headers';
 import { cn } from './lib/utils';
-import type { CookieRule, HeaderOperation, HeaderRule } from './lib/types';
+import type {
+  CookieRule,
+  HeaderOperation,
+  HeaderRule,
+  RedirectRule,
+  ResponseHeaderRule,
+} from './lib/types';
 
 function headerOperationLabel(operation: HeaderOperation | undefined) {
   return operation === 'append' ? 'Append' : 'Replace';
@@ -26,17 +34,25 @@ export type ModreqView =
   | { kind: 'home' }
   | { kind: 'pick-type' }
   | { kind: 'edit-header'; ruleId: string }
-  | { kind: 'edit-cookie'; ruleId: string };
+  | { kind: 'edit-cookie'; ruleId: string }
+  | { kind: 'edit-redirect'; ruleId: string }
+  | { kind: 'edit-response-header'; ruleId: string };
 
 export type ModreqPopupProps = {
   loaded: boolean;
   headers: HeaderRule[];
   cookies: CookieRule[];
+  redirects: RedirectRule[];
+  responseHeaders: ResponseHeaderRule[];
   view: ModreqView;
   onHeadersChange: React.Dispatch<React.SetStateAction<HeaderRule[]>>;
   onCookiesChange: React.Dispatch<React.SetStateAction<CookieRule[]>>;
+  onRedirectsChange: React.Dispatch<React.SetStateAction<RedirectRule[]>>;
+  onResponseHeadersChange: React.Dispatch<React.SetStateAction<ResponseHeaderRule[]>>;
   onViewChange: React.Dispatch<React.SetStateAction<ModreqView>>;
-  onStartNewModification: (type: 'header' | 'cookie') => void;
+  onStartNewModification: (
+    type: 'header' | 'cookie' | 'redirect' | 'response-header',
+  ) => void;
   onApplyCookies?: () => void | Promise<void>;
 };
 
@@ -44,9 +60,13 @@ export function ModreqPopup({
   loaded,
   headers,
   cookies,
+  redirects,
+  responseHeaders,
   view,
   onHeadersChange,
   onCookiesChange,
+  onRedirectsChange,
+  onResponseHeadersChange,
   onViewChange,
   onStartNewModification,
   onApplyCookies,
@@ -63,7 +83,23 @@ export function ModreqPopup({
     );
   }
 
-  const hasModifications = headers.length > 0 || cookies.length > 0;
+  function updateRedirect(id: string, patch: Partial<RedirectRule>) {
+    onRedirectsChange((current) =>
+      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule)),
+    );
+  }
+
+  function updateResponseHeader(id: string, patch: Partial<ResponseHeaderRule>) {
+    onResponseHeadersChange((current) =>
+      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule)),
+    );
+  }
+
+  const hasModifications =
+    headers.length > 0 ||
+    cookies.length > 0 ||
+    redirects.length > 0 ||
+    responseHeaders.length > 0;
   const editingHeader =
     view.kind === 'edit-header'
       ? headers.find((rule) => rule.id === view.ruleId)
@@ -71,6 +107,14 @@ export function ModreqPopup({
   const editingCookie =
     view.kind === 'edit-cookie'
       ? cookies.find((rule) => rule.id === view.ruleId)
+      : undefined;
+  const editingRedirect =
+    view.kind === 'edit-redirect'
+      ? redirects.find((rule) => rule.id === view.ruleId)
+      : undefined;
+  const editingResponseHeader =
+    view.kind === 'edit-response-header'
+      ? responseHeaders.find((rule) => rule.id === view.ruleId)
       : undefined;
 
   if (!loaded) {
@@ -99,6 +143,20 @@ export function ModreqPopup({
             description="Replace or append a header on matching requests"
             flowTarget="pick-header"
             onClick={() => onStartNewModification('header')}
+          />
+          <TypeOption
+            icon={Server}
+            title="Response headers"
+            description="Replace or append a header on matching responses"
+            flowTarget="pick-response-header"
+            onClick={() => onStartNewModification('response-header')}
+          />
+          <TypeOption
+            icon={ArrowLeftRight}
+            title="Redirect requests"
+            description="Send matching requests to another URL"
+            flowTarget="pick-redirect"
+            onClick={() => onStartNewModification('redirect')}
           />
           <TypeOption
             icon={Cookie}
@@ -273,6 +331,163 @@ export function ModreqPopup({
     );
   }
 
+  if (view.kind === 'edit-redirect' && editingRedirect) {
+    return (
+      <PopupFrame
+        header={
+          <ScreenHeader title="Redirect" onBack={() => onViewChange({ kind: 'home' })} />
+        }
+        footer={
+          <EditorActions
+            onDelete={() => {
+              onRedirectsChange((current) =>
+                current.filter((rule) => rule.id !== editingRedirect.id),
+              );
+              onViewChange({ kind: 'home' });
+            }}
+            onDone={() => onViewChange({ kind: 'home' })}
+          />
+        }
+      >
+        <SectionIntro
+          title="Redirect requests"
+          description="Matching requests are sent to the redirect URL instead."
+        />
+        <RuleEditorFields className="mt-6">
+          <Field label="URL filter" htmlFor="redirect-filter">
+            <Input
+              id="redirect-filter"
+              className="h-10"
+              placeholder="*://api.prod.example/*"
+              value={editingRedirect.urlFilter}
+              onChange={(event) =>
+                updateRedirect(editingRedirect.id, { urlFilter: event.target.value })
+              }
+            />
+          </Field>
+          <Field label="Redirect URL" htmlFor="redirect-url">
+            <Input
+              id="redirect-url"
+              className="h-10"
+              placeholder="https://api.staging.example/"
+              value={editingRedirect.redirectUrl}
+              onChange={(event) =>
+                updateRedirect(editingRedirect.id, { redirectUrl: event.target.value })
+              }
+            />
+          </Field>
+          <ToggleRow
+            id="redirect-enabled"
+            label="Enabled"
+            checked={editingRedirect.enabled}
+            onCheckedChange={(enabled) =>
+              updateRedirect(editingRedirect.id, { enabled })
+            }
+          />
+        </RuleEditorFields>
+      </PopupFrame>
+    );
+  }
+
+  if (view.kind === 'edit-response-header' && editingResponseHeader) {
+    const operation = editingResponseHeader.operation ?? 'set';
+
+    return (
+      <PopupFrame
+        header={
+          <ScreenHeader
+            title="Response header"
+            onBack={() => onViewChange({ kind: 'home' })}
+          />
+        }
+        footer={
+          <EditorActions
+            onDelete={() => {
+              onResponseHeadersChange((current) =>
+                current.filter((rule) => rule.id !== editingResponseHeader.id),
+              );
+              onViewChange({ kind: 'home' });
+            }}
+            onDone={() => onViewChange({ kind: 'home' })}
+          />
+        }
+      >
+        <SectionIntro
+          title="Response header"
+          description={
+            operation === 'append'
+              ? 'Append this value to the header on matching responses.'
+              : 'Replace this header on every matching response.'
+          }
+        />
+        <RuleEditorFields className="mt-6">
+          <Field label="Mode" htmlFor="response-header-operation">
+            <Tabs
+              value={operation}
+              onValueChange={(nextOperation) =>
+                updateResponseHeader(editingResponseHeader.id, {
+                  operation: nextOperation as HeaderOperation,
+                })
+              }
+            >
+              <TabsList id="response-header-operation">
+                <TabsTrigger value="set">Replace</TabsTrigger>
+                <TabsTrigger value="append">Append</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </Field>
+          <Field label="Header name" htmlFor="response-header-name">
+            <Input
+              id="response-header-name"
+              className="h-10"
+              placeholder="Access-Control-Allow-Origin"
+              value={editingResponseHeader.name}
+              onChange={(event) =>
+                updateResponseHeader(editingResponseHeader.id, {
+                  name: event.target.value,
+                })
+              }
+            />
+          </Field>
+          <Field label="Header value" htmlFor="response-header-value">
+            <Input
+              id="response-header-value"
+              className="h-10"
+              placeholder="*"
+              value={editingResponseHeader.value}
+              onChange={(event) =>
+                updateResponseHeader(editingResponseHeader.id, {
+                  value: event.target.value,
+                })
+              }
+            />
+          </Field>
+          <Field label="URL filter" htmlFor="response-header-filter">
+            <Input
+              id="response-header-filter"
+              className="h-10"
+              placeholder="*"
+              value={editingResponseHeader.urlFilter ?? '*'}
+              onChange={(event) =>
+                updateResponseHeader(editingResponseHeader.id, {
+                  urlFilter: event.target.value,
+                })
+              }
+            />
+          </Field>
+          <ToggleRow
+            id="response-header-enabled"
+            label="Enabled"
+            checked={editingResponseHeader.enabled}
+            onCheckedChange={(enabled) =>
+              updateResponseHeader(editingResponseHeader.id, { enabled })
+            }
+          />
+        </RuleEditorFields>
+      </PopupFrame>
+    );
+  }
+
   if (!hasModifications) {
     return (
       <PopupFrame header={<AppHeader title="modreq" />} centerMain>
@@ -315,6 +530,48 @@ export function ModreqPopup({
                 onOpen={() => onViewChange({ kind: 'edit-header', ruleId: rule.id })}
                 onDelete={() =>
                   onHeadersChange((current) => current.filter((item) => item.id !== rule.id))
+                }
+              />
+            ))}
+          </ModificationSection>
+        )}
+
+        {responseHeaders.length > 0 && (
+          <ModificationSection title="Response headers">
+            {responseHeaders.map((rule) => (
+              <RuleListItem
+                key={rule.id}
+                enabled={rule.enabled}
+                primary={rule.name || 'Unnamed header'}
+                secondary={`${headerOperationLabel(rule.operation)} · ${rule.value || 'No value'}`}
+                onToggle={(enabled) => updateResponseHeader(rule.id, { enabled })}
+                onOpen={() =>
+                  onViewChange({ kind: 'edit-response-header', ruleId: rule.id })
+                }
+                onDelete={() =>
+                  onResponseHeadersChange((current) =>
+                    current.filter((item) => item.id !== rule.id),
+                  )
+                }
+              />
+            ))}
+          </ModificationSection>
+        )}
+
+        {redirects.length > 0 && (
+          <ModificationSection title="Redirects">
+            {redirects.map((rule) => (
+              <RuleListItem
+                key={rule.id}
+                enabled={rule.enabled}
+                primary={rule.urlFilter || 'No URL filter'}
+                secondary={`→ ${rule.redirectUrl || 'No redirect URL'}`}
+                onToggle={(enabled) => updateRedirect(rule.id, { enabled })}
+                onOpen={() => onViewChange({ kind: 'edit-redirect', ruleId: rule.id })}
+                onDelete={() =>
+                  onRedirectsChange((current) =>
+                    current.filter((item) => item.id !== rule.id),
+                  )
                 }
               />
             ))}
@@ -388,7 +645,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       </h2>
 
       <p className="mt-3 max-w-[260px] text-sm leading-6 text-muted-foreground">
-        Add a request header or overwrite a cookie value to get started.
+        Add headers, redirects, or cookie overwrites to get started.
       </p>
 
       <Button

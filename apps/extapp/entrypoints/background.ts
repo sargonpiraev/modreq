@@ -1,12 +1,33 @@
 import { applyCookieRulesToActiveTab } from '@/lib/cookie-rules';
-import { applyHeaderRules } from '@/lib/header-rules';
-import { cookieRules, headerRules } from '@/lib/storage';
+import { applyDnrRules } from '@/lib/dnr-rules';
+import {
+  cookieRules,
+  headerRules,
+  redirectRules,
+  responseHeaderRules,
+} from '@/lib/storage';
+
+async function syncDnrRules() {
+  const [headers, responseHeaders, redirects] = await Promise.all([
+    headerRules.getValue(),
+    responseHeaderRules.getValue(),
+    redirectRules.getValue(),
+  ]);
+
+  await applyDnrRules({ headers, responseHeaders, redirects });
+}
 
 export default defineBackground(() => {
-  void headerRules.getValue().then(applyHeaderRules);
+  void syncDnrRules();
 
-  headerRules.watch((rules) => {
-    void applyHeaderRules(rules);
+  headerRules.watch(() => {
+    void syncDnrRules();
+  });
+  responseHeaderRules.watch(() => {
+    void syncDnrRules();
+  });
+  redirectRules.watch(() => {
+    void syncDnrRules();
   });
 
   browser.runtime.onMessage.addListener((message) => {

@@ -1,1 +1,6 @@
-export type { CookieRule, HeaderRule } from '@repo/ui/modreq/types';
+export type {
+  CookieRule,
+  HeaderRule,
+  RedirectRule,
+  ResponseHeaderRule,
+} from '@repo/ui/modreq/types';
