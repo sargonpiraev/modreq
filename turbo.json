@@ -16,6 +16,22 @@
     "test": {
       "dependsOn": ["^test"]
     },
+    "test:functional": {
+      "cache": false,
+      "dependsOn": ["build"]
+    },
+    "test:spec": {
+      "cache": false
+    },
+    "test:seo": {
+      "cache": false
+    },
+    "test:analytics": {
+      "cache": false
+    },
+    "test:visual": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true

@@ -3,16 +3,18 @@
   "$schema": "../schema/project__project.json",
   "projectType": "application",
   "tags": [
-    "product",
+    "project",
     "type:app",
     "stack:next",
     "status:active"
   ],
   "metadata": {
-    "description": "Modreq web product",
+    "description": "Modreq web project",
     "technologies": [
       "next",
-      "turbo"
+      "turbo",
+      "playwright",
+      "wxt"
     ]
   },
   "targets": {
@@ -58,9 +60,58 @@
         "cwd": "modreq"
       }
     },
-    "test:types": {
+    "test:check-types": {
       "cache": false,
-      "command": "npm run test:types",
+      "command": "npm run test:check-types",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:functional": {
+      "cache": false,
+      "command": "npm run test:functional",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:seo": {
+      "cache": false,
+      "command": "npm run test:seo",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:analytics": {
+      "cache": false,
+      "command": "npm run test:analytics",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:spec": {
+      "cache": false,
+      "command": "npm run test:spec",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:visual": {
+      "cache": false,
+      "command": "npm run test:visual",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:format": {
+      "cache": false,
+      "command": "npm run test:format",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "git:status": {
+      "cache": false,
+      "command": "git status -sb",
       "options": {
         "cwd": "modreq"
       }

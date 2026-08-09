@@ -7,8 +7,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "test": "turbo run test",
-    "e2e": "npm run e2e --workspace=extapp",
+    "test": "npm run test:check-types && npm run test:lint && npm run test:unit && npm run test:spec",
     "screenshots": "npm run screenshots --workspace=imgapp --",
     "promo-tiles": "npm run promo-tiles --workspace=imgapp --",
     "shots": "npm run shots --workspace=imgapp --",
@@ -16,7 +15,14 @@
     "prepare": "lefthook install",
     "test:unit": "turbo run test",
     "test:lint": "npm run lint",
-    "test:types": "npm run check-types"
+    "test:check-types": "npm run check-types",
+    "test:functional": "npm run test:functional --workspace=webapp && npm run test:functional --workspace=extapp",
+    "test:seo": "npm run test:seo --workspace=webapp",
+    "test:analytics": "npm run test:analytics --workspace=webapp",
+    "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
+    "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
+
+    "test:format": "prettier --check \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",

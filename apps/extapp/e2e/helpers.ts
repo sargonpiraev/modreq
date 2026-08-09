@@ -5,7 +5,7 @@ import { expect } from './fixtures';
 export const ECHO_HEADERS_URL = 'https://httpbingo.org/headers';
 export const ECHO_COOKIES_URL = 'https://httpbingo.org/cookies';
 export const ECHO_GET_URL = 'https://httpbingo.org/get';
-/** Unique path used as redirect source in e2e (must not collide with other tests). */
+/** Unique path used as redirect source in functional specs (must not collide with other tests). */
 export const ECHO_REDIRECT_SOURCE_URL =
   'https://httpbingo.org/anything/modreq-redirect-source';
 
