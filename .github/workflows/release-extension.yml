@@ -1,8 +1,7 @@
 name: release-extension
 
+# Manual only until CHROME_REFRESH_TOKEN is rotated (CWS invalid_grant).
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
