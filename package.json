@@ -7,7 +7,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "test": "npm run test:check-types && npm run test:lint && npm run test:unit && npm run test:spec",
+    "test": "npm run test:check-types && npm run test:lint && npm run test:unit",
     "screenshots": "npm run screenshots --workspace=imgapp --",
     "promo-tiles": "npm run promo-tiles --workspace=imgapp --",
     "shots": "npm run shots --workspace=imgapp --",
@@ -21,6 +21,7 @@
     "test:analytics": "npm run test:analytics --workspace=webapp",
     "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
     "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
+    "test:visual:update": "bash scripts/pw-visual-docker.sh",
     "test:format": "prettier --check \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

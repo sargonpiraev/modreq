@@ -10,8 +10,9 @@ export const test = base.extend<{
   extensionId: string;
 }>({
   context: async ({}, use) => {
+    // channel: 'chromium' enables extension loading in headless (CI / Docker).
     const context = await chromium.launchPersistentContext('', {
-      headless: false,
+      channel: 'chromium',
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,

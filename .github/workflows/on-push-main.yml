@@ -4,13 +4,37 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: on-push-main-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  ci:
+  base:
     uses: sargonpiraev/ci/.github/workflows/on-push-main.yml@main
     secrets: inherit
 
+  test-playwright:
+    runs-on: ubuntu-latest
+    # Keep in sync with scripts/pw-visual-docker.sh (@playwright/test version → image tag).
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-jammy
+      options: --user 1001
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: sargonpiraev/ci/.github/actions/setup-node-npm-ci@main
+
+      - name: Playwright suites
+        run: npm run test:spec && npm run test:visual
+        env:
+          CI: true
+          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+
   release:
-    needs: [ci]
+    needs: [base, test-playwright]
     runs-on: ubuntu-latest
     permissions:
       contents: write
