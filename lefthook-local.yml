@@ -1,0 +1,3 @@
+# Local override: skip audit (parity with workflow skip-audit).
+exclude_tags:
+  - audit

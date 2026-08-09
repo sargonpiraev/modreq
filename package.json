@@ -21,7 +21,6 @@
     "test:analytics": "npm run test:analytics --workspace=webapp",
     "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
     "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
-
     "test:format": "prettier --check \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
@@ -46,8 +45,8 @@
   "overrides": {
     "@eslint/plugin-kit": "0.3.4",
     "adm-zip": "0.6.0",
-    "brace-expansion@1": "1.1.16",
-    "brace-expansion@2": "2.1.2",
+    "brace-expansion@1": "1.1.18",
+    "brace-expansion@2": "2.1.4",
     "esbuild": "0.28.1",
     "fx-runner": "1.5.0",
     "picomatch": "4.0.5",
@@ -64,7 +63,8 @@
     },
     "firefox-profile": {
       "adm-zip": "0.6.0"
-    }
+    },
+    "brace-expansion@5": "5.0.9"
   },
   "workspaces": [
     "apps/*",
