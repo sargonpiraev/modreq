@@ -1,5 +1,4 @@
 # Remotes override lefthook.yml; this file overrides remotes.
-# Parallel build/test races Next locks; skip audit locally (parity with skip-audit).
 exclude_tags:
   - audit
 pre-push:
