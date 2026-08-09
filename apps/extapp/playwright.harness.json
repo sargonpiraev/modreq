@@ -1,9 +1,0 @@
-{
-  "$schema": "../../../schema/app__playwright-extapp.json",
-  "app": "extapp",
-  "projects": ["functional", "visual"],
-  "coverage": {
-    "collector": "none",
-    "thresholds": false
-  }
-}

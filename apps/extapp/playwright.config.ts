@@ -1,8 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
-import harness from './playwright.harness.json' with { type: 'json' };
-
-/** Real popup size from entrypoints/popup/style.css (html/body/#root). */
+/** Real popup size from layout / product popup viewport. */
 const EXTENSION_POPUP_VIEWPORT = { width: 380, height: 560 } as const;
 
 export default defineConfig({
@@ -16,15 +14,17 @@ export default defineConfig({
   use: {
     trace: 'on-first-retry',
   },
-  projects: harness.projects.map((name) => ({
-    name,
-    testMatch: `**/*.${name}.spec.ts`,
-    ...(name === 'visual'
-      ? {
-          use: {
-            viewport: EXTENSION_POPUP_VIEWPORT,
-          },
-        }
-      : {}),
-  })),
+  projects: [
+    {
+      name: 'functional',
+      testMatch: '**/*.functional.spec.ts',
+    },
+    {
+      name: 'visual',
+      testMatch: '**/*.visual.spec.ts',
+      use: {
+        viewport: EXTENSION_POPUP_VIEWPORT,
+      },
+    },
+  ],
 });

@@ -1,10 +1,16 @@
 import { defineConfig, devices } from '@playwright/test';
 
-import harness from './playwright.harness.json' with { type: 'json' };
-
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3010';
 
-const projectDevices: Record<string, (typeof devices)[string]> = {
+const projectNames = [
+  'functional',
+  'seo',
+  'analytics',
+  'visual',
+  'visual-mobile',
+] as const;
+
+const projectDevices: Record<(typeof projectNames)[number], (typeof devices)[string]> = {
   functional: devices['Desktop Chrome'],
   seo: devices['Desktop Chrome'],
   analytics: devices['Desktop Chrome'],
@@ -24,7 +30,7 @@ export default defineConfig({
     baseURL,
     trace: 'on-first-retry',
   },
-  projects: harness.projects.map((name) => ({
+  projects: projectNames.map((name) => ({
     name,
     testMatch: `**/*.${name.replace(/-mobile$/, '')}.spec.ts`,
     use: { ...projectDevices[name] },
