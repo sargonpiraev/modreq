@@ -33,26 +33,5 @@ jobs:
           CI: true
           PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
 
-  release:
-    needs: [base, test-playwright]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: true
-
-      - uses: sargonpiraev/ci/.github/actions/setup-node-npm-ci@main
-
-      - name: Release extension
-        run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
-          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
-          CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
-          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+  # CWS publish: keep out of the CI gate so expired OAuth secrets don't fail lint/test.
+  # Triggered separately via release-extension.yml.
