@@ -2,7 +2,7 @@
   "name": "extapp",
   "description": "Modify HTTP request headers and cookies. Replace or append headers, override cookies. Free ModHeader alternative.",
   "private": true,
-  "version": "1.7.0",
+  "version": "1.8.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -17,7 +17,6 @@
     "test:functional": "npm run build && playwright test --project=functional",
     "test:spec": "npm run test:functional",
     "test:visual": "npm run build && playwright test --project=visual",
-
     "submit": "wxt submit --chrome-zip .output/extapp-$npm_package_version-chrome.zip",
     "validate:store": "tsx scripts/validate-store-assets.ts",
     "postinstall": "wxt prepare"
