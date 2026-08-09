@@ -1,0 +1,69 @@
+{
+  "name": "modreq",
+  "$schema": "../schema/project__project.json",
+  "projectType": "application",
+  "tags": [
+    "product",
+    "type:app",
+    "stack:next",
+    "status:active"
+  ],
+  "metadata": {
+    "description": "Modreq web product",
+    "technologies": [
+      "next",
+      "turbo"
+    ]
+  },
+  "targets": {
+    "test": {
+      "cache": false,
+      "command": "npm run test",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "lint": {
+      "cache": false,
+      "command": "npm run lint",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "check-types": {
+      "cache": false,
+      "command": "npm run check-types",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "build": {
+      "cache": false,
+      "command": "npm run build",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:unit": {
+      "cache": false,
+      "command": "npm run test:unit",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:lint": {
+      "cache": false,
+      "command": "npm run test:lint",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:types": {
+      "cache": false,
+      "command": "npm run test:types",
+      "options": {
+        "cwd": "modreq"
+      }
+    }
+  }
+}
