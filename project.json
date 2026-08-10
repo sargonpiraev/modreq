@@ -102,6 +102,13 @@
         "cwd": "modreq"
       }
     },
+    "test:cwv": {
+      "cache": false,
+      "command": "npm run test:cwv",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
     "test:format": {
       "cache": false,
       "command": "npm run test:format",

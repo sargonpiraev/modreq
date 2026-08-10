@@ -12,6 +12,7 @@
     "test:seo": "playwright test --project=seo",
     "test:analytics": "playwright test --project=analytics",
     "test:visual": "playwright test --project=visual --project=visual-mobile",
+    "test:cwv": "playwright test --project=cwv",
     "test:spec": "playwright test --project=functional --project=seo --project=analytics"
   },
   "dependencies": {

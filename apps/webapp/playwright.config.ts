@@ -8,6 +8,7 @@ const projectNames = [
   'analytics',
   'visual',
   'visual-mobile',
+  'cwv',
 ] as const;
 
 const projectDevices: Record<(typeof projectNames)[number], (typeof devices)[string]> = {
@@ -16,6 +17,7 @@ const projectDevices: Record<(typeof projectNames)[number], (typeof devices)[str
   analytics: devices['Desktop Chrome'],
   visual: devices['Desktop Chrome'],
   'visual-mobile': devices['Pixel 5'],
+  cwv: devices['Desktop Chrome'],
 };
 
 export default defineConfig({

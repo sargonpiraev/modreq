@@ -21,6 +21,7 @@
     "test:analytics": "npm run test:analytics --workspace=webapp",
     "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
     "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
+    "test:cwv": "npm run test:cwv --workspace=webapp",
     "test:visual:update": "bash scripts/pw-visual-docker.sh",
     "test:format": "prettier --check \"**/*.{ts,tsx,md}\""
   },
