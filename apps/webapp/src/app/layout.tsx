@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { DM_Sans, Syne } from 'next/font/google';
+import { DM_Sans, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 
-const display = Syne({
+const display = Space_Grotesk({
   variable: '--font-display',
   subsets: ['latin'],
   weight: ['600', '700', '800'],
