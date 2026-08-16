@@ -1,5 +1,5 @@
 {
-  "$schema": "../../schema/project__worktrees.json",
+  "$schema": "../node_modules/@sargonpiraev/eslint-config/build/schemas/project__worktrees.json",
   "setup-worktree-unix": [
     "npm ci",
     "find \"$ROOT_WORKTREE_PATH\" -name '.env' -not -path '*/node_modules/*' -print0 | while IFS= read -r -d '' f; do rel=\"${f#\"$ROOT_WORKTREE_PATH\"/}\"; mkdir -p \"$(dirname \"$rel\")\"; cp \"$f\" \"$rel\"; done"

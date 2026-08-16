@@ -49,7 +49,7 @@
     "typescript": "5.9.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "packageManager": "npm@10.9.4",
   "overrides": {
@@ -80,7 +80,7 @@
     "apps/*",
     "packages/*"
   ],
-  "$schema": "../schema/project__package.json",
+  "$schema": "./node_modules/@sargonpiraev/eslint-config/build/schemas/project__package.json",
   "allowScripts": {
     "@asamarts/alint@0.14.2": true
   }

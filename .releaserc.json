@@ -20,9 +20,13 @@
     [
       "@semantic-release/git",
       {
-        "assets": ["apps/extapp/package.json", "package-lock.json"],
+        "assets": [
+          "apps/extapp/package.json",
+          "package-lock.json"
+        ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ]
-  ]
+  ],
+  "$schema": "./node_modules/@sargonpiraev/eslint-config/build/schemas/project__releaserc.json"
 }
