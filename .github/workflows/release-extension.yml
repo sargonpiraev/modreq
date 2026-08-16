@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - uses: sargonpiraev/ci/.github/actions/setup-node-npm-ci@main
+      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
 
       - name: Release extension
         run: npx semantic-release

@@ -23,11 +23,15 @@
     "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
     "test:cwv": "npm run test:cwv --workspace=webapp",
     "test:visual:update": "bash scripts/pw-visual-docker.sh",
-    "test:format": "prettier --check \"**/*.{ts,tsx,md}\""
+    "test:format": "prettier --check \"**/*.{ts,tsx,md}\"",
+    "test:alint": "alint check"
   },
   "devDependencies": {
+    "@asamarts/alint": "^0.14.2",
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
+    "@sargonpiraev/prettier-config": "^1.0.0",
+    "@sargonpiraev/tsconfig": "^1.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
@@ -35,10 +39,13 @@
     "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.0",
     "lefthook": "^2.1.9",
-    "prettier": "^3.7.4",
+    "prettier": "^3.9.6",
     "semantic-release": "^25.0.8",
     "turbo": "^2.10.0",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "@sargonpiraev/eslint-config": "^1.4.0",
+    "eslint": "^9.26.0",
+    "eslint-plugin-json-schema-validator": "^6.3.1"
   },
   "engines": {
     "node": ">=18"
@@ -72,5 +79,8 @@
     "apps/*",
     "packages/*"
   ],
-  "$schema": "../schema/project__package.json"
+  "$schema": "../schema/project__package.json",
+  "allowScripts": {
+    "@asamarts/alint@0.14.2": true
+  }
 }

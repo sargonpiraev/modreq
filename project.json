@@ -122,6 +122,13 @@
       "options": {
         "cwd": "modreq"
       }
+    },
+    "test:alint": {
+      "cache": false,
+      "command": "npm run test:alint",
+      "options": {
+        "cwd": "modreq"
+      }
     }
   }
 }

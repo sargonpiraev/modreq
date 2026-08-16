@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   base:
-    uses: sargonpiraev/ci/.github/workflows/on-push-main.yml@main
+    uses: sargonpiraev/shared/.github/workflows/on-push-main.yml@main
     secrets: inherit
 
   test-playwright:
@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: sargonpiraev/ci/.github/actions/setup-node-npm-ci@main
+      - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
 
       - name: Playwright suites
         run: npm run test:spec && npm run test:visual
