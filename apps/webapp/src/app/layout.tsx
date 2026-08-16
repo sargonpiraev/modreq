@@ -5,7 +5,7 @@ import './globals.css';
 const display = Space_Grotesk({
   variable: '--font-display',
   subsets: ['latin'],
-  weight: ['600', '700', '800'],
+  weight: ['600', '700'],
 });
 
 const body = DM_Sans({
