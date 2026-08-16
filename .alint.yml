@@ -1,7 +1,5 @@
 # yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
-# Product project shape via shared/ci/.alint.yml (sibling-relative).
-# Raw GitHub unpublished + remote nested extends unsupported — use local sibling.
+# Product shape via shared leaf (GitHub raw + SRI). No cross-repo filesystem extends.
 version: 1
-allow_out_of_root: true
 extends:
-  - ../shared/ci/.alint.yml
+  - https://raw.githubusercontent.com/sargonpiraev/shared/main/ci/alint/project.yml#sha256-c7bb2909afb62e727cdbcf36a2c8521f35e0a5374e62c201739d38504d082305
