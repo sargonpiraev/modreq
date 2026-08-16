@@ -3,3 +3,8 @@ remotes:
     ref: main
     configs:
       - ci/lefthook.yml
+
+# Audit stays in CI on-push-main (parity with workflow skip-audit).
+pre-push:
+  exclude_tags:
+    - audit

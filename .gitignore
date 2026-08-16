@@ -39,3 +39,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Lefthook personal overrides (optional; never commit)
+lefthook-local.yml
+lefthook-local.yaml

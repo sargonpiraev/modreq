@@ -1,5 +1,0 @@
-# Remotes override lefthook.yml; this file overrides remotes.
-exclude_tags:
-  - audit
-pre-push:
-  parallel: false

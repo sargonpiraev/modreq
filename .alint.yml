@@ -2,4 +2,4 @@
 # Product shape via shared leaf (GitHub raw + SRI). No cross-repo filesystem extends.
 version: 1
 extends:
-  - https://raw.githubusercontent.com/sargonpiraev/shared/main/ci/alint/project.yml#sha256-c7bb2909afb62e727cdbcf36a2c8521f35e0a5374e62c201739d38504d082305
+  - https://raw.githubusercontent.com/sargonpiraev/shared/main/ci/alint/project.yml#sha256-a2f9be8e9244e2cda9585046d41789e943165e40b064edab91fc926cebf6c807
