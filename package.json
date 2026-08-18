@@ -1,63 +1,46 @@
 {
+  "$schema": "./node_modules/@sargonpiraev/eslint-config/build/schemas/project__package.json",
   "name": "modreq",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "test": "npm run test:check-types && npm run test:lint && npm run test:unit",
-    "screenshots": "npm run screenshots --workspace=imgapp --",
-    "promo-tiles": "npm run promo-tiles --workspace=imgapp --",
-    "shots": "npm run shots --workspace=imgapp --",
-    "render:video": "turbo run render --filter=vidapp",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
     "prepare": "lefthook install",
-    "test:unit": "turbo run test",
-    "test:lint": "npm run lint",
-    "test:check-types": "npm run check-types",
-    "test:functional": "npm run test:functional --workspace=webapp && npm run test:functional --workspace=extapp",
-    "test:seo": "npm run test:seo --workspace=webapp",
+    "promo-tiles": "npm run promo-tiles --workspace=imgapp --",
+    "render:video": "turbo run render --filter=vidapp",
+    "screenshots": "npm run screenshots --workspace=imgapp --",
+    "shots": "npm run shots --workspace=imgapp --",
+    "test": "npm run test:check-types && npm run test:lint && npm run test:unit",
+    "test:alint": "alint check",
     "test:analytics": "npm run test:analytics --workspace=webapp",
-    "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
-    "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
+    "test:check-types": "npm run check-types",
     "test:cwv": "npm run test:cwv --workspace=webapp",
-    "test:visual:update": "bash scripts/pw-visual-docker.sh",
     "test:format": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "test:alint": "alint check"
+    "test:functional": "npm run test:functional --workspace=webapp && npm run test:functional --workspace=extapp",
+    "test:lint": "npm run lint",
+    "test:seo": "npm run test:seo --workspace=webapp",
+    "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
+    "test:unit": "turbo run test",
+    "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
+    "test:visual:update": "bash scripts/pw-visual-docker.sh"
   },
-  "devDependencies": {
-    "@asamarts/alint": "^0.14.2",
-    "@commitlint/cli": "^21.2.1",
-    "@sargonpiraev/commitlint-config": "^1.0.0",
-    "@sargonpiraev/eslint-config": "^1.6.0",
-    "@sargonpiraev/prettier-config": "^1.0.0",
-    "@sargonpiraev/semantic-release-config": "^0.0.0",
-    "@sargonpiraev/tsconfig": "^1.0.0",
-    "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/exec": "^7.1.0",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^12.0.9",
-    "@semantic-release/npm": "^13.1.5",
-    "@semantic-release/release-notes-generator": "^14.1.0",
-    "eslint": "^9.26.0",
-    "eslint-plugin-json-schema-validator": "^6.3.1",
-    "lefthook": "^2.1.9",
-    "prettier": "^3.9.6",
-    "semantic-release": "^25.0.8",
-    "turbo": "^2.10.0",
-    "typescript": "5.9.2"
-  },
-  "engines": {
-    "node": ">=22"
-  },
-  "packageManager": "npm@10.9.4",
   "overrides": {
     "@eslint/plugin-kit": "0.3.4",
     "adm-zip": "0.6.0",
     "brace-expansion@1": "1.1.18",
     "brace-expansion@2": "2.1.4",
+    "brace-expansion@5": "5.0.9",
     "esbuild": "0.28.1",
+    "firefox-profile": {
+      "adm-zip": "0.6.0"
+    },
     "fx-runner": "1.5.0",
     "picomatch": "4.0.5",
     "shell-quote": "1.10.0",
@@ -70,17 +53,34 @@
       "node-notifier": {
         "uuid": "11.1.1"
       }
-    },
-    "firefox-profile": {
-      "adm-zip": "0.6.0"
-    },
-    "brace-expansion@5": "5.0.9"
+    }
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "$schema": "./node_modules/@sargonpiraev/eslint-config/build/schemas/project__package.json",
+  "devDependencies": {
+    "@asamarts/alint": "^0.14.2",
+    "@commitlint/cli": "21.2.2",
+    "@sargonpiraev/commitlint-config": "1.2.0",
+    "@sargonpiraev/eslint-config": "1.8.0",
+    "@sargonpiraev/prettier-config": "1.3.0",
+    "@sargonpiraev/semantic-release-config": "1.3.0",
+    "@sargonpiraev/tsconfig": "1.2.0",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.9",
+    "@semantic-release/npm": "^13.1.5",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-json-schema-validator": "^6.3.1",
+    "lefthook": "2.1.10",
+    "prettier": "3.9.6",
+    "semantic-release": "^25.0.8",
+    "turbo": "^2.10.0",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "npm@10.9.4",
+  "engines": {
+    "node": ">=22"
+  },
   "allowScripts": {
     "@asamarts/alint@0.14.2": true
   }

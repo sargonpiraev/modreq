@@ -1,25 +1,25 @@
 {
   "name": "extapp",
-  "description": "Modify HTTP request headers and cookies. Replace or append headers, override cookies. Free ModHeader alternative.",
-  "private": true,
   "version": "1.8.1",
+  "private": true,
+  "description": "Modify HTTP request headers and cookies. Replace or append headers, override cookies. Free ModHeader alternative.",
   "type": "module",
   "scripts": {
-    "dev": "wxt",
-    "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "zip": "wxt zip",
-    "zip:firefox": "wxt zip -b firefox",
-    "compile": "tsc --noEmit",
     "check-types": "tsc --noEmit",
+    "compile": "tsc --noEmit",
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "postinstall": "wxt prepare",
+    "submit": "wxt submit --chrome-zip .output/extapp-$npm_package_version-chrome.zip",
     "test": "tsc --noEmit",
     "test:functional": "npm run build && playwright test --project=functional",
     "test:spec": "npm run test:functional",
     "test:visual": "npm run build && playwright test --project=visual",
-    "submit": "wxt submit --chrome-zip .output/extapp-$npm_package_version-chrome.zip",
     "validate:store": "tsx scripts/validate-store-assets.ts",
-    "postinstall": "wxt prepare"
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox"
   },
   "dependencies": {
     "@repo/ui": "*",
@@ -37,7 +37,7 @@
     "@types/react-dom": "19.2.4",
     "@wxt-dev/module-react": "^1.1.5",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "5.9.2",
     "wxt": "^0.20.27"
   }
 }
