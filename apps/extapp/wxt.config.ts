@@ -9,6 +9,11 @@ export default defineConfig({
   },
   vite: () => ({
     plugins: [tailwindcss()],
+    // Monorepo nests react under apps/extapp + packages/ui; without dedupe the
+    // popup crashes with "Cannot read properties of null (reading 'useContext')".
+    resolve: {
+      dedupe: ['react', 'react-dom'],
+    },
   }),
   manifest: {
     name: 'modreq - Modify HTTP Headers',
