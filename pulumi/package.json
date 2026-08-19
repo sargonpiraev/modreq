@@ -1,0 +1,24 @@
+{
+  "name": "@repo/pulumi",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pack:cws-etl": "npm --prefix functions/cws-listing run pack:deploy",
+    "preview": "npm run pack:cws-etl && pulumi preview",
+    "up": "npm run pack:cws-etl && pulumi up --yes",
+    "destroy": "pulumi destroy --yes",
+    "test:pulumi": "tsx --test extapp-analytics.test.ts"
+  },
+  "dependencies": {
+    "@pulumi/gcp": "^9.34.1",
+    "@pulumi/pulumi": "^3.0.0",
+    "@sargonpiraev/pulumi-apps": "^1.1.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

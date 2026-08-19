@@ -1,0 +1,15 @@
+node_modules/
+.pulumi/
+Pulumi.*.yaml
+!Pulumi.yaml
+.env
+.env.*
+
+!.env.example
+
+# Function build outputs (rebuilt via pack:cws-etl)
+functions/*/node_modules/
+functions/*/lib/
+functions/*/deploy/
+functions/*/deploy.zip
+functions/*/package-lock.json

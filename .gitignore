@@ -12,6 +12,10 @@ node_modules
 .env.test.local
 .env.production.local
 
+# Pulumi secrets / local backend (do not ignore pulumi/ tree)
+pulumi/.env
+pulumi/.pulumi/
+
 # Testing
 coverage
 playwright-report
