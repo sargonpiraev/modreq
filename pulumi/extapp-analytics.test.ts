@@ -71,4 +71,28 @@ describe("modreq extapp product analytics (Pulumi mocks)", () => {
       `expected gcp:cloudfunctions/function:Function child, got: ${[...types].join(", ")}`,
     );
   });
+
+  it("fails fast when CWS item id is missing (dashboard URL, not env)", () => {
+    assert.throws(
+      () =>
+        createExtappProductAnalytics({
+          gcpProjectId: "sargonpiraev",
+          location: "EU",
+          region: "europe-west1",
+          datasetId: "product_cws",
+          cwsItemId: "  ",
+          cwsItemSlug: "modreq",
+          gcpServiceAccountKeyB64: Buffer.from("{}").toString("base64"),
+        }),
+      (err: unknown) => {
+        assert.ok(err instanceof Error);
+        assert.match(err.message, /CWS item id is required in stack code \(not env\)/);
+        assert.match(
+          err.message,
+          /https:\/\/chrome\.google\.com\/webstore\/devconsole/,
+        );
+        return true;
+      },
+    );
+  });
 });
