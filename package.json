@@ -27,7 +27,7 @@
     "test:eslint": "npm run lint",
     "test:format": "prettier --check \"**/*.{ts,tsx,md}\"",
     "test:functional": "npm run test:functional --workspace=webapp && npm run test:functional --workspace=extapp",
-    "test:pulumi": "npm --prefix pulumi run test:pulumi",
+    "test:pulumi": "npm ci --prefix pulumi && npm --prefix pulumi run test:pulumi",
     "test:seo": "npm run test:seo --workspace=webapp",
     "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
     "test:unit": "turbo run test",
