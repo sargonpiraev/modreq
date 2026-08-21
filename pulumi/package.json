@@ -8,11 +8,13 @@
     "preview": "npm run pack:cws-etl && pulumi preview",
     "up": "npm run pack:cws-etl && pulumi up --yes",
     "destroy": "pulumi destroy --yes",
+    "postinstall": "node ./scripts/ensure-pulumi-provider-server.mjs",
     "test:pulumi": "tsx --test extapp-analytics.test.ts webapp-analytics.test.ts index-clusters.test.ts"
   },
   "dependencies": {
     "@pulumi/gcp": "^9.34.1",
     "@pulumi/pulumi": "^3.0.0",
+    "@pulumiverse/vercel": "^1.0.0",
     "@sargonpiraev/pulumi-apps": "^1.5.0",
     "dotenv": "^16.0.0"
   },
