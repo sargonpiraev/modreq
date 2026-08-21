@@ -8,7 +8,7 @@
     "preview": "npm run pack:cws-etl && pulumi preview",
     "up": "npm run pack:cws-etl && pulumi up --yes",
     "destroy": "pulumi destroy --yes",
-    "test:pulumi": "tsx --test extapp-analytics.test.ts webapp-analytics.test.ts"
+    "test:pulumi": "tsx --test extapp-analytics.test.ts webapp-analytics.test.ts index-clusters.test.ts"
   },
   "dependencies": {
     "@pulumi/gcp": "^9.34.1",
