@@ -56,6 +56,7 @@ describe("modreq webapp product analytics (Pulumi mocks)", () => {
       gcpServiceAccountKeyB64: Buffer.from(
         JSON.stringify({ project_id: "sargonpiraev" }),
       ).toString("base64"),
+      vercelApiToken: "test",
     });
     await flushPulumiMocks();
 
@@ -63,6 +64,14 @@ describe("modreq webapp product analytics (Pulumi mocks)", () => {
     assert.ok(
       types.has(WEBAPP_TYPE),
       `expected ${WEBAPP_TYPE}, got: ${[...types].join(", ")}`,
+    );
+    assert.ok(
+      types.has("ga4:index:Property"),
+      `expected ga4:index:Property, got: ${[...types].join(", ")}`,
+    );
+    assert.ok(
+      types.has("ga4:index:BigQueryLink"),
+      `expected ga4:index:BigQueryLink, got: ${[...types].join(", ")}`,
     );
   });
 });

@@ -9,6 +9,7 @@ export type ModreqWebappArgs = {
   gscSiteUrl: string;
   gscServiceAccountKeyB64: string;
   gcpServiceAccountKeyB64: string;
+  vercelApiToken: string;
 };
 
 /**
@@ -29,6 +30,11 @@ export function createWebappProductAnalytics(args: ModreqWebappArgs): Webapp {
       product: "modreq",
       source: "gsc",
       domain: "product",
+    },
+    vercel: {
+      apiToken: args.vercelApiToken,
+      name: "modreq",
+      gitRepository: "sargonpiraev/modreq",
     },
   });
 }

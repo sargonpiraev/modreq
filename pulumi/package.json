@@ -13,7 +13,7 @@
   "dependencies": {
     "@pulumi/gcp": "^9.34.1",
     "@pulumi/pulumi": "^3.0.0",
-    "@sargonpiraev/pulumi-apps": "^1.1.0",
+    "@sargonpiraev/pulumi-apps": "^1.5.0",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {
