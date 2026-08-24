@@ -65,5 +65,11 @@ jobs:
           CI: true
           PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
 
+      - name: Playwright cwv
+        run: npm run test:cwv
+        env:
+          CI: true
+          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+
   # CWS publish: keep out of the CI gate so expired OAuth secrets don't fail lint/test.
   # Triggered separately via release-extension.yml.
