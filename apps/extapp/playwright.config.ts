@@ -5,6 +5,8 @@ const EXTENSION_POPUP_VIEWPORT = { width: 380, height: 560 } as const;
 
 export default defineConfig({
   testDir: 'e2e',
+  snapshotPathTemplate:
+    '{testDir}/{testFilePath}-snapshots/{arg}{-project}-linux{ext}',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

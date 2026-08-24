@@ -32,8 +32,8 @@
     "test:seo": "npm run test:seo --workspace=webapp",
     "test:spec": "npm run test:spec --workspace=webapp && npm run test:spec --workspace=extapp",
     "test:unit": "turbo run test",
-    "test:visual": "npm run test:visual --workspace=webapp && npm run test:visual --workspace=extapp",
-    "test:visual:update": "bash scripts/pw-visual-docker.sh"
+    "test:visual": "bash scripts/pw-visual-docker.sh",
+    "test:visual:update": "bash scripts/pw-visual-docker.sh --update-snapshots"
   },
   "overrides": {
     "@eslint/plugin-kit": "0.3.4",

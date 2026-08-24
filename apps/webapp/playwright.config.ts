@@ -4,6 +4,8 @@ const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3010';
 
 export default defineConfig({
   testDir: './e2e',
+  snapshotPathTemplate:
+    '{testDir}/{testFilePath}-snapshots/{arg}{-project}-linux{ext}',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

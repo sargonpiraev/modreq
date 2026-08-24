@@ -17,19 +17,50 @@ jobs:
     uses: sargonpiraev/shared/.github/workflows/on-push-main.yml@main
     secrets: inherit
 
-  test-playwright:
+  playwright-image:
     runs-on: ubuntu-latest
-    # Keep in sync with scripts/pw-visual-docker.sh (@playwright/test version → image tag).
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+    steps:
+      - uses: actions/checkout@v6
+      - id: image
+        run: |
+          set -euo pipefail
+          IMAGE=$(node -e '
+            const lock = require("./package-lock.json");
+            const key = Object.keys(lock.packages).find((k) =>
+              k.endsWith("node_modules/@playwright/test"),
+            );
+            if (!key) {
+              throw new Error("missing @playwright/test in package-lock.json");
+            }
+            process.stdout.write(
+              "mcr.microsoft.com/playwright:v" +
+                lock.packages[key].version +
+                "-jammy",
+            );
+          ')
+          echo "image=${IMAGE}" >> "$GITHUB_OUTPUT"
+
+  test-playwright:
+    needs: playwright-image
+    runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.62.1-jammy
+      image: ${{ needs.playwright-image.outputs.image }}
       options: --user 1001
     steps:
       - uses: actions/checkout@v6
 
       - uses: sargonpiraev/shared/.github/actions/setup-node-npm-ci@main
 
-      - name: Playwright suites
-        run: npm run test:spec && npm run test:visual
+      - name: Playwright spec
+        run: npm run test:spec
+        env:
+          CI: true
+          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+
+      - name: Playwright visual
+        run: npm run test:visual
         env:
           CI: true
           PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
