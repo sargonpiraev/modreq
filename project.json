@@ -145,9 +145,16 @@
         "cwd": "modreq"
       }
     },
-    "test:alint": {
+    "test:fslint": {
       "cache": false,
-      "command": "npm run test:alint",
+      "command": "npm run test:fslint",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:configlint": {
+      "cache": false,
+      "command": "npm run test:configlint",
       "options": {
         "cwd": "modreq"
       }

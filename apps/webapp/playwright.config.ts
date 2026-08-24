@@ -2,24 +2,6 @@ import { defineConfig, devices } from '@playwright/test';
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3010';
 
-const projectNames = [
-  'functional',
-  'seo',
-  'analytics',
-  'visual',
-  'visual-mobile',
-  'cwv',
-] as const;
-
-const projectDevices: Record<(typeof projectNames)[number], (typeof devices)[string]> = {
-  functional: devices['Desktop Chrome'],
-  seo: devices['Desktop Chrome'],
-  analytics: devices['Desktop Chrome'],
-  visual: devices['Desktop Chrome'],
-  'visual-mobile': devices['Pixel 5'],
-  cwv: devices['Desktop Chrome'],
-};
-
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -37,11 +19,38 @@ export default defineConfig({
     baseURL,
     trace: 'on-first-retry',
   },
-  projects: projectNames.map((name) => ({
-    name,
-    testMatch: `**/*.${name.replace(/-mobile$/, '')}.spec.ts`,
-    use: { ...projectDevices[name] },
-  })),
+  projects: [
+    {
+      name: 'functional',
+      testMatch: '**/*.functional.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'seo',
+      testMatch: '**/*.seo.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'analytics',
+      testMatch: '**/*.analytics.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'visual',
+      testMatch: '**/*.visual.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'visual-mobile',
+      testMatch: '**/*.visual.spec.ts',
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'cwv',
+      testMatch: '**/*.cwv.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
   webServer: {
     command: 'npx next dev --port 3010',
     url: baseURL,

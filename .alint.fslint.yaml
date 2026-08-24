@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
+# Product shape via @sargonpiraev/fslint-config (install the package).
+version: 1
+respect_gitignore: false
+ignore:
+  - 'node_modules/'
+  - '**/node_modules/'
+  - '.git/'
+  - '**/.git/'
+extends:
+  - ./node_modules/@sargonpiraev/fslint-config/project.yaml

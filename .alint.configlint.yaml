@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
+# Product configlint via @sargonpiraev/configlint-config (install the package for templates/).
+version: 1
+extends:
+  - ./node_modules/@sargonpiraev/configlint-config/project__package.json.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__project.json.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__.nvmrc.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__.npmrc.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__turbo.json.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__tsconfig.json.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__commitlintrc.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__eslint.config.mjs.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__prettier.config.mjs.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__lefthook.yml.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__.cursor__worktrees.json.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__.alint.fslint.yaml.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__.alint.configlint.yaml.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/webapp__playwright.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/docapp__playwright.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/extapp__playwright.yaml
