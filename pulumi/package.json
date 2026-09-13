@@ -9,7 +9,7 @@
     "up": "npm run pack:cws-etl && pulumi up --yes",
     "destroy": "pulumi destroy --yes",
     "postinstall": "node ./scripts/ensure-pulumi-provider-server.mjs",
-    "test:pulumi": "tsx --test extapp-analytics.test.ts webapp-analytics.test.ts index-clusters.test.ts"
+    "test:pulumi": "tsx --test extapp.test.ts webapp.test.ts index-clusters.test.ts"
   },
   "dependencies": {
     "@pulumi/gcp": "^9.34.1",

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ReactNode } from 'react'
 import {
   ArrowLeft,
   ArrowLeftRight,
@@ -9,25 +9,25 @@ import {
   Server,
   Trash2,
   Wrench,
-} from 'lucide-react';
+} from 'lucide-react'
 
-import { Button } from './components/button';
-import { Input } from './components/input';
-import { Label } from './components/label';
-import { Switch } from './components/switch';
-import { Tabs, TabsList, TabsTrigger } from './components/tabs';
-import { isAppendableRequestHeader } from './lib/append-headers';
-import { cn } from './lib/utils';
+import { Button } from './components/button'
+import { Input } from './components/input'
+import { Label } from './components/label'
+import { Switch } from './components/switch'
+import { Tabs, TabsList, TabsTrigger } from './components/tabs'
+import { isAppendableRequestHeader } from './lib/append-headers'
+import { cn } from './lib/utils'
 import type {
   CookieRule,
   HeaderOperation,
   HeaderRule,
   RedirectRule,
   ResponseHeaderRule,
-} from './lib/types';
+} from './lib/types'
 
 function headerOperationLabel(operation: HeaderOperation | undefined) {
-  return operation === 'append' ? 'Append' : 'Replace';
+  return operation === 'append' ? 'Append' : 'Replace'
 }
 
 export type ModreqView =
@@ -36,25 +36,23 @@ export type ModreqView =
   | { kind: 'edit-header'; ruleId: string }
   | { kind: 'edit-cookie'; ruleId: string }
   | { kind: 'edit-redirect'; ruleId: string }
-  | { kind: 'edit-response-header'; ruleId: string };
+  | { kind: 'edit-response-header'; ruleId: string }
 
 export type ModreqPopupProps = {
-  loaded: boolean;
-  headers: HeaderRule[];
-  cookies: CookieRule[];
-  redirects: RedirectRule[];
-  responseHeaders: ResponseHeaderRule[];
-  view: ModreqView;
-  onHeadersChange: React.Dispatch<React.SetStateAction<HeaderRule[]>>;
-  onCookiesChange: React.Dispatch<React.SetStateAction<CookieRule[]>>;
-  onRedirectsChange: React.Dispatch<React.SetStateAction<RedirectRule[]>>;
-  onResponseHeadersChange: React.Dispatch<React.SetStateAction<ResponseHeaderRule[]>>;
-  onViewChange: React.Dispatch<React.SetStateAction<ModreqView>>;
-  onStartNewModification: (
-    type: 'header' | 'cookie' | 'redirect' | 'response-header',
-  ) => void;
-  onApplyCookies?: () => void | Promise<void>;
-};
+  loaded: boolean
+  headers: HeaderRule[]
+  cookies: CookieRule[]
+  redirects: RedirectRule[]
+  responseHeaders: ResponseHeaderRule[]
+  view: ModreqView
+  onHeadersChange: React.Dispatch<React.SetStateAction<HeaderRule[]>>
+  onCookiesChange: React.Dispatch<React.SetStateAction<CookieRule[]>>
+  onRedirectsChange: React.Dispatch<React.SetStateAction<RedirectRule[]>>
+  onResponseHeadersChange: React.Dispatch<React.SetStateAction<ResponseHeaderRule[]>>
+  onViewChange: React.Dispatch<React.SetStateAction<ModreqView>>
+  onStartNewModification: (type: 'header' | 'cookie' | 'redirect' | 'response-header') => void
+  onApplyCookies?: () => void | Promise<void>
+}
 
 export function ModreqPopup({
   loaded,
@@ -73,56 +71,47 @@ export function ModreqPopup({
 }: ModreqPopupProps) {
   function updateHeader(id: string, patch: Partial<HeaderRule>) {
     onHeadersChange((current) =>
-      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule)),
-    );
+      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule))
+    )
   }
 
   function updateCookie(id: string, patch: Partial<CookieRule>) {
     onCookiesChange((current) =>
-      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule)),
-    );
+      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule))
+    )
   }
 
   function updateRedirect(id: string, patch: Partial<RedirectRule>) {
     onRedirectsChange((current) =>
-      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule)),
-    );
+      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule))
+    )
   }
 
   function updateResponseHeader(id: string, patch: Partial<ResponseHeaderRule>) {
     onResponseHeadersChange((current) =>
-      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule)),
-    );
+      current.map((rule) => (rule.id === id ? { ...rule, ...patch } : rule))
+    )
   }
 
   const hasModifications =
-    headers.length > 0 ||
-    cookies.length > 0 ||
-    redirects.length > 0 ||
-    responseHeaders.length > 0;
+    headers.length > 0 || cookies.length > 0 || redirects.length > 0 || responseHeaders.length > 0
   const editingHeader =
-    view.kind === 'edit-header'
-      ? headers.find((rule) => rule.id === view.ruleId)
-      : undefined;
+    view.kind === 'edit-header' ? headers.find((rule) => rule.id === view.ruleId) : undefined
   const editingCookie =
-    view.kind === 'edit-cookie'
-      ? cookies.find((rule) => rule.id === view.ruleId)
-      : undefined;
+    view.kind === 'edit-cookie' ? cookies.find((rule) => rule.id === view.ruleId) : undefined
   const editingRedirect =
-    view.kind === 'edit-redirect'
-      ? redirects.find((rule) => rule.id === view.ruleId)
-      : undefined;
+    view.kind === 'edit-redirect' ? redirects.find((rule) => rule.id === view.ruleId) : undefined
   const editingResponseHeader =
     view.kind === 'edit-response-header'
       ? responseHeaders.find((rule) => rule.id === view.ruleId)
-      : undefined;
+      : undefined
 
   if (!loaded) {
     return (
       <PopupFrame centerMain>
         <p className="text-sm text-muted-foreground">Loading...</p>
       </PopupFrame>
-    );
+    )
   }
 
   if (view.kind === 'pick-type') {
@@ -167,17 +156,15 @@ export function ModreqPopup({
           />
         </div>
       </PopupFrame>
-    );
+    )
   }
 
   if (view.kind === 'edit-header' && editingHeader) {
-    const operation = editingHeader.operation ?? 'set';
-    const headerName = editingHeader.name.trim();
-    const showAppendHint = operation === 'append';
+    const operation = editingHeader.operation ?? 'set'
+    const headerName = editingHeader.name.trim()
+    const showAppendHint = operation === 'append'
     const showAppendWarning =
-      operation === 'append' &&
-      headerName.length > 0 &&
-      !isAppendableRequestHeader(headerName);
+      operation === 'append' && headerName.length > 0 && !isAppendableRequestHeader(headerName)
 
     return (
       <PopupFrame
@@ -187,10 +174,8 @@ export function ModreqPopup({
         footer={
           <EditorActions
             onDelete={() => {
-              onHeadersChange((current) =>
-                current.filter((rule) => rule.id !== editingHeader.id),
-              );
-              onViewChange({ kind: 'home' });
+              onHeadersChange((current) => current.filter((rule) => rule.id !== editingHeader.id))
+              onViewChange({ kind: 'home' })
             }}
             onDone={() => onViewChange({ kind: 'home' })}
           />
@@ -221,8 +206,8 @@ export function ModreqPopup({
             </Tabs>
             {showAppendHint ? (
               <p className="text-xs leading-5 text-muted-foreground">
-                Append works only for Chrome-allowlisted headers (cookie, accept,
-                user-agent, x-forwarded-for, …). Use Replace for custom{' '}
+                Append works only for Chrome-allowlisted headers (cookie, accept, user-agent,
+                x-forwarded-for, …). Use Replace for custom{' '}
                 <span className="font-medium text-foreground">X-*</span> headers.
               </p>
             ) : null}
@@ -233,14 +218,11 @@ export function ModreqPopup({
               className="h-10"
               placeholder={operation === 'append' ? 'cookie' : 'X-Forwarded-For'}
               value={editingHeader.name}
-              onChange={(event) =>
-                updateHeader(editingHeader.id, { name: event.target.value })
-              }
+              onChange={(event) => updateHeader(editingHeader.id, { name: event.target.value })}
             />
             {showAppendWarning ? (
               <p className="text-xs leading-5 text-amber-700 dark:text-amber-400">
-                Chrome won’t append{' '}
-                <span className="font-medium">{headerName}</span>. Switch to
+                Chrome won’t append <span className="font-medium">{headerName}</span>. Switch to
                 Replace.
               </p>
             ) : null}
@@ -251,22 +233,18 @@ export function ModreqPopup({
               className="h-10"
               placeholder="8.8.8.8"
               value={editingHeader.value}
-              onChange={(event) =>
-                updateHeader(editingHeader.id, { value: event.target.value })
-              }
+              onChange={(event) => updateHeader(editingHeader.id, { value: event.target.value })}
             />
           </Field>
           <ToggleRow
             id="header-enabled"
             label="Enabled"
             checked={editingHeader.enabled}
-            onCheckedChange={(enabled) =>
-              updateHeader(editingHeader.id, { enabled })
-            }
+            onCheckedChange={(enabled) => updateHeader(editingHeader.id, { enabled })}
           />
         </RuleEditorFields>
       </PopupFrame>
-    );
+    )
   }
 
   if (view.kind === 'edit-cookie' && editingCookie) {
@@ -278,14 +256,12 @@ export function ModreqPopup({
         footer={
           <EditorActions
             onDelete={() => {
-              onCookiesChange((current) =>
-                current.filter((rule) => rule.id !== editingCookie.id),
-              );
-              onViewChange({ kind: 'home' });
+              onCookiesChange((current) => current.filter((rule) => rule.id !== editingCookie.id))
+              onViewChange({ kind: 'home' })
             }}
             onDone={() => {
-              void onApplyCookies?.();
-              onViewChange({ kind: 'home' });
+              void onApplyCookies?.()
+              onViewChange({ kind: 'home' })
             }}
             doneLabel="Save & apply"
           />
@@ -302,9 +278,7 @@ export function ModreqPopup({
               className="h-10"
               placeholder="session"
               value={editingCookie.name}
-              onChange={(event) =>
-                updateCookie(editingCookie.id, { name: event.target.value })
-              }
+              onChange={(event) => updateCookie(editingCookie.id, { name: event.target.value })}
             />
           </Field>
           <Field label="New value" htmlFor="cookie-value">
@@ -313,37 +287,31 @@ export function ModreqPopup({
               className="h-10"
               placeholder="replaced-value"
               value={editingCookie.value}
-              onChange={(event) =>
-                updateCookie(editingCookie.id, { value: event.target.value })
-              }
+              onChange={(event) => updateCookie(editingCookie.id, { value: event.target.value })}
             />
           </Field>
           <ToggleRow
             id="cookie-enabled"
             label="Enabled"
             checked={editingCookie.enabled}
-            onCheckedChange={(enabled) =>
-              updateCookie(editingCookie.id, { enabled })
-            }
+            onCheckedChange={(enabled) => updateCookie(editingCookie.id, { enabled })}
           />
         </RuleEditorFields>
       </PopupFrame>
-    );
+    )
   }
 
   if (view.kind === 'edit-redirect' && editingRedirect) {
     return (
       <PopupFrame
-        header={
-          <ScreenHeader title="Redirect" onBack={() => onViewChange({ kind: 'home' })} />
-        }
+        header={<ScreenHeader title="Redirect" onBack={() => onViewChange({ kind: 'home' })} />}
         footer={
           <EditorActions
             onDelete={() => {
               onRedirectsChange((current) =>
-                current.filter((rule) => rule.id !== editingRedirect.id),
-              );
-              onViewChange({ kind: 'home' });
+                current.filter((rule) => rule.id !== editingRedirect.id)
+              )
+              onViewChange({ kind: 'home' })
             }}
             onDone={() => onViewChange({ kind: 'home' })}
           />
@@ -380,33 +348,28 @@ export function ModreqPopup({
             id="redirect-enabled"
             label="Enabled"
             checked={editingRedirect.enabled}
-            onCheckedChange={(enabled) =>
-              updateRedirect(editingRedirect.id, { enabled })
-            }
+            onCheckedChange={(enabled) => updateRedirect(editingRedirect.id, { enabled })}
           />
         </RuleEditorFields>
       </PopupFrame>
-    );
+    )
   }
 
   if (view.kind === 'edit-response-header' && editingResponseHeader) {
-    const operation = editingResponseHeader.operation ?? 'set';
+    const operation = editingResponseHeader.operation ?? 'set'
 
     return (
       <PopupFrame
         header={
-          <ScreenHeader
-            title="Response header"
-            onBack={() => onViewChange({ kind: 'home' })}
-          />
+          <ScreenHeader title="Response header" onBack={() => onViewChange({ kind: 'home' })} />
         }
         footer={
           <EditorActions
             onDelete={() => {
               onResponseHeadersChange((current) =>
-                current.filter((rule) => rule.id !== editingResponseHeader.id),
-              );
-              onViewChange({ kind: 'home' });
+                current.filter((rule) => rule.id !== editingResponseHeader.id)
+              )
+              onViewChange({ kind: 'home' })
             }}
             onDone={() => onViewChange({ kind: 'home' })}
           />
@@ -485,7 +448,7 @@ export function ModreqPopup({
           />
         </RuleEditorFields>
       </PopupFrame>
-    );
+    )
   }
 
   if (!hasModifications) {
@@ -493,7 +456,7 @@ export function ModreqPopup({
       <PopupFrame header={<AppHeader title="modreq" />} centerMain>
         <EmptyState onAdd={() => onViewChange({ kind: 'pick-type' })} />
       </PopupFrame>
-    );
+    )
   }
 
   return (
@@ -545,12 +508,10 @@ export function ModreqPopup({
                 primary={rule.name || 'Unnamed header'}
                 secondary={`${headerOperationLabel(rule.operation)} · ${rule.value || 'No value'}`}
                 onToggle={(enabled) => updateResponseHeader(rule.id, { enabled })}
-                onOpen={() =>
-                  onViewChange({ kind: 'edit-response-header', ruleId: rule.id })
-                }
+                onOpen={() => onViewChange({ kind: 'edit-response-header', ruleId: rule.id })}
                 onDelete={() =>
                   onResponseHeadersChange((current) =>
-                    current.filter((item) => item.id !== rule.id),
+                    current.filter((item) => item.id !== rule.id)
                   )
                 }
               />
@@ -569,9 +530,7 @@ export function ModreqPopup({
                 onToggle={(enabled) => updateRedirect(rule.id, { enabled })}
                 onOpen={() => onViewChange({ kind: 'edit-redirect', ruleId: rule.id })}
                 onDelete={() =>
-                  onRedirectsChange((current) =>
-                    current.filter((item) => item.id !== rule.id),
-                  )
+                  onRedirectsChange((current) => current.filter((item) => item.id !== rule.id))
                 }
               />
             ))}
@@ -597,7 +556,7 @@ export function ModreqPopup({
         )}
       </div>
     </PopupFrame>
-  );
+  )
 }
 
 function PopupFrame({
@@ -606,10 +565,10 @@ function PopupFrame({
   centerMain = false,
   children,
 }: {
-  header?: ReactNode;
-  footer?: ReactNode;
-  centerMain?: boolean;
-  children: ReactNode;
+  header?: ReactNode
+  footer?: ReactNode
+  centerMain?: boolean
+  children: ReactNode
 }) {
   return (
     <div className="flex h-full min-h-0 w-full flex-col overflow-hidden bg-background">
@@ -617,20 +576,16 @@ function PopupFrame({
       <main
         className={cn(
           'min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-5',
-          centerMain ? 'flex flex-col items-center justify-center py-8' : 'py-5',
+          centerMain ? 'flex flex-col items-center justify-center py-8' : 'py-5'
         )}
       >
-        <div className={cn('w-full', centerMain && 'flex flex-col items-center')}>
-          {children}
-        </div>
+        <div className={cn('w-full', centerMain && 'flex flex-col items-center')}>{children}</div>
       </main>
       {footer ? (
-        <footer className="shrink-0 border-t border-border/80 bg-card px-5 py-4">
-          {footer}
-        </footer>
+        <footer className="shrink-0 border-t border-border/80 bg-card px-5 py-4">{footer}</footer>
       ) : null}
     </div>
-  );
+  )
 }
 
 function EmptyState({ onAdd }: { onAdd: () => void }) {
@@ -659,16 +614,10 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
         Add modification
       </Button>
     </div>
-  );
+  )
 }
 
-function SectionIntro({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
+function SectionIntro({ title, description }: { title: string; description: string }) {
   return (
     <div className="text-center">
       <h2 className="text-lg font-semibold tracking-tight text-foreground">{title}</h2>
@@ -676,17 +625,15 @@ function SectionIntro({
         {description}
       </p>
     </div>
-  );
+  )
 }
 
 function AppHeader({ title }: { title: string }) {
   return (
     <header className="flex h-14 shrink-0 items-center justify-center border-b border-primary/25 bg-primary px-5">
-      <span className="text-base font-semibold tracking-tight text-foreground">
-        {title}
-      </span>
+      <span className="text-base font-semibold tracking-tight text-foreground">{title}</span>
     </header>
-  );
+  )
 }
 
 function ScreenHeader({ title, onBack }: { title: string; onBack: () => void }) {
@@ -705,7 +652,7 @@ function ScreenHeader({ title, onBack }: { title: string; onBack: () => void }) 
         {title}
       </span>
     </header>
-  );
+  )
 }
 
 function TypeOption({
@@ -715,11 +662,11 @@ function TypeOption({
   flowTarget,
   onClick,
 }: {
-  icon: typeof Globe;
-  title: string;
-  description: string;
-  flowTarget?: string;
-  onClick: () => void;
+  icon: typeof Globe
+  title: string
+  description: string
+  flowTarget?: string
+  onClick: () => void
 }) {
   return (
     <button
@@ -737,16 +684,10 @@ function TypeOption({
       </div>
       <ChevronRight className="size-4 shrink-0 text-muted-foreground/80" />
     </button>
-  );
+  )
 }
 
-function ModificationSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+function ModificationSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm">
       <div className="border-b border-border/80 bg-muted/20 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
@@ -754,7 +695,7 @@ function ModificationSection({
       </div>
       <div className="divide-y divide-border/80">{children}</div>
     </section>
-  );
+  )
 }
 
 function RuleListItem({
@@ -765,21 +706,17 @@ function RuleListItem({
   onOpen,
   onDelete,
 }: {
-  enabled: boolean;
-  primary: string;
-  secondary: string;
-  onToggle: (enabled: boolean) => void;
-  onOpen: () => void;
-  onDelete: () => void;
+  enabled: boolean
+  primary: string
+  secondary: string
+  onToggle: (enabled: boolean) => void
+  onOpen: () => void
+  onDelete: () => void
 }) {
   return (
     <div className="flex items-center gap-3 px-4 py-3.5">
       <Switch checked={enabled} onCheckedChange={onToggle} />
-      <button
-        type="button"
-        className="min-w-0 flex-1 px-1 text-left"
-        onClick={onOpen}
-      >
+      <button type="button" className="min-w-0 flex-1 px-1 text-left" onClick={onOpen}>
         <div className="truncate text-sm font-medium text-foreground">{primary}</div>
         <div className="mt-1 truncate text-xs text-muted-foreground">{secondary}</div>
       </button>
@@ -793,17 +730,11 @@ function RuleListItem({
         <Trash2 className="size-4" />
       </Button>
     </div>
-  );
+  )
 }
 
-function RuleEditorFields({
-  className,
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) {
-  return <div className={cn('flex flex-col gap-4', className)}>{children}</div>;
+function RuleEditorFields({ className, children }: { className?: string; children: ReactNode }) {
+  return <div className={cn('flex flex-col gap-4', className)}>{children}</div>
 }
 
 function Field({
@@ -811,9 +742,9 @@ function Field({
   htmlFor,
   children,
 }: {
-  label: string;
-  htmlFor: string;
-  children: ReactNode;
+  label: string
+  htmlFor: string
+  children: ReactNode
 }) {
   return (
     <div className="grid gap-2.5">
@@ -825,7 +756,7 @@ function Field({
       </Label>
       {children}
     </div>
-  );
+  )
 }
 
 function ToggleRow({
@@ -834,10 +765,10 @@ function ToggleRow({
   checked,
   onCheckedChange,
 }: {
-  id: string;
-  label: string;
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
+  id: string
+  label: string
+  checked: boolean
+  onCheckedChange: (checked: boolean) => void
 }) {
   return (
     <div className="flex items-center justify-between rounded-xl border border-border/80 bg-card px-4 py-3.5">
@@ -846,7 +777,7 @@ function ToggleRow({
       </Label>
       <Switch id={id} checked={checked} onCheckedChange={onCheckedChange} />
     </div>
-  );
+  )
 }
 
 function EditorActions({
@@ -854,9 +785,9 @@ function EditorActions({
   onDone,
   doneLabel = 'Done',
 }: {
-  onDelete: () => void;
-  onDone: () => void;
-  doneLabel?: string;
+  onDelete: () => void
+  onDone: () => void
+  doneLabel?: string
 }) {
   return (
     <div className="flex gap-3">
@@ -879,5 +810,5 @@ function EditorActions({
         {doneLabel}
       </Button>
     </div>
-  );
+  )
 }

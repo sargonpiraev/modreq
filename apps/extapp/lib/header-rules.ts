@@ -1,1 +1,1 @@
-export { applyDnrRules, applyHeaderRules } from '@/lib/dnr-rules';
+export { applyDnrRules, applyHeaderRules } from '@/lib/dnr-rules'

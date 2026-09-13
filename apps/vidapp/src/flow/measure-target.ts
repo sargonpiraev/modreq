@@ -1,16 +1,16 @@
-import type { FlowTarget } from './cursor-path';
-import { START_CURSOR } from './cursor-path';
+import type { FlowTarget } from "./cursor-path";
+import { START_CURSOR } from "./cursor-path";
 
 export type Point = { x: number; y: number };
 
-const targetCache = new Map<FlowTarget | '__start__', Point>();
+const targetCache = new Map<FlowTarget | "__start__", Point>();
 
 export function getTargetCenter(
   container: HTMLElement,
-  targetId: FlowTarget | '__start__',
+  targetId: FlowTarget | "__start__",
   scale: number,
 ): Point {
-  if (targetId === '__start__') {
+  if (targetId === "__start__") {
     return START_CURSOR;
   }
 

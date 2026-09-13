@@ -1,11 +1,10 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
-const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3010';
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3010'
 
 export default defineConfig({
   testDir: './e2e',
-  snapshotPathTemplate:
-    '{testDir}/{testFilePath}-snapshots/{arg}{-project}-linux{ext}',
+  snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{-project}-linux{ext}',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -23,34 +22,12 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'functional',
-      testMatch: '**/*.functional.spec.ts',
+      name: 'desktop',
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'seo',
-      testMatch: '**/*.seo.spec.ts',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'analytics',
-      testMatch: '**/*.analytics.spec.ts',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'visual',
-      testMatch: '**/*.visual.spec.ts',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'visual-mobile',
-      testMatch: '**/*.visual.spec.ts',
+      name: 'mobile',
       use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'cwv',
-      testMatch: '**/*.cwv.spec.ts',
-      use: { ...devices['Desktop Chrome'] },
     },
   ],
   webServer: {
@@ -59,4 +36,4 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
-});
+})

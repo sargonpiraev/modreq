@@ -34,7 +34,7 @@
         "^test"
       ]
     },
-    "test:functional": {
+    "test:spec:feat": {
       "cache": false,
       "dependsOn": [
         "build"
@@ -43,13 +43,13 @@
     "test:spec": {
       "cache": false
     },
-    "test:seo": {
+    "test:spec:seokit": {
       "cache": false
     },
-    "test:analytics": {
+    "test:spec:analytics": {
       "cache": false
     },
-    "test:visual": {
+    "test:spec:visual": {
       "cache": false
     },
     "dev": {

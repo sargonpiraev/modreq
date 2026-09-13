@@ -3,6 +3,7 @@ import path from 'node:path'
 import { describe, it, before } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import * as pulumi from '@pulumi/pulumi'
+import { WEBAPP_TYPE, Webapp, repoHasWebapp } from '@sargonpiraev/pulumi-apps'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, '..')
@@ -27,9 +28,6 @@ await pulumi.runtime.setMocks(
   false
 )
 
-const { createWebappProductAnalytics, repoHasWebapp, WEBAPP_TYPE } =
-  await import('./webapp-analytics.ts')
-
 async function flushPulumiMocks(): Promise<void> {
   await new Promise<void>((resolve) => setImmediate(resolve))
   await new Promise<void>((resolve) => setImmediate(resolve))
@@ -45,7 +43,11 @@ describe('modreq webapp product analytics (Pulumi mocks)', () => {
   })
 
   it('registers shared Webapp ComponentResource when webapp exists', async () => {
-    createWebappProductAnalytics({
+    new Webapp('webapp', {
+      productId: 'modreq',
+      pageTypes: [{ id: 'home', path: '^https://sargonpiraev\\.github\\.io/modreq/?$' }],
+      importGscExportTables: false,
+      importAnalyticsDataset: false,
       gcpProjectId: 'sargonpiraev',
       datasetId: 'searchconsole_modreq',
       location: 'EU',
@@ -56,7 +58,7 @@ describe('modreq webapp product analytics (Pulumi mocks)', () => {
       gcpServiceAccountKeyB64: Buffer.from(JSON.stringify({ project_id: 'sargonpiraev' })).toString(
         'base64'
       ),
-      vercelApiToken: 'test',
+      vercel: { apiToken: 'test', name: 'modreq', gitRepository: 'sargonpiraev/modreq' },
     })
     await flushPulumiMocks()
 

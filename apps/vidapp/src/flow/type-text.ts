@@ -5,7 +5,7 @@ export function typeText(
   frame: number,
 ): string {
   if (frame < startFrame) {
-    return '';
+    return "";
   }
 
   if (frame >= endFrame) {

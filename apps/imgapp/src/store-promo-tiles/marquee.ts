@@ -1,4 +1,4 @@
-import { definePromoTile } from '../lib/define-promo-tile';
+import { definePromoTile } from '../lib/define-promo-tile'
 
 export default definePromoTile({
   code: 'marquee',
@@ -7,4 +7,4 @@ export default definePromoTile({
   width: 1400,
   height: 560,
   waitFor: 'Modify HTTP request headers',
-});
+})

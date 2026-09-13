@@ -3,4 +3,4 @@ export type {
   HeaderRule,
   RedirectRule,
   ResponseHeaderRule,
-} from '@repo/ui/modreq/types';
+} from '@repo/ui/modreq/types'

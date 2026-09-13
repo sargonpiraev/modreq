@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
 # Product configlint via @sargonpiraev/configlint-config (install the package for templates/).
 version: 1
+# Linked @sargonpiraev/configlint-config realpaths into sibling shared/; alint requires this.
+allow_out_of_root: true
 extends:
   - ./node_modules/@sargonpiraev/configlint-config/project__package.json.yaml
   - ./node_modules/@sargonpiraev/configlint-config/project__project.json.yaml
@@ -18,3 +20,10 @@ extends:
   - ./node_modules/@sargonpiraev/configlint-config/webapp__playwright.yaml
   - ./node_modules/@sargonpiraev/configlint-config/docapp__playwright.yaml
   - ./node_modules/@sargonpiraev/configlint-config/extapp__playwright.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__pulumi__webapp.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__pulumi__mobapp.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__pulumi__extapp.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__packages__oapi-client.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__packages__db-client.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__packages__scrape-client.yaml
+  - ./node_modules/@sargonpiraev/configlint-config/project__apps__localproxy.yaml

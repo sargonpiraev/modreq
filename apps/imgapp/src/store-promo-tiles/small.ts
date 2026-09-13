@@ -1,4 +1,4 @@
-import { definePromoTile } from '../lib/define-promo-tile';
+import { definePromoTile } from '../lib/define-promo-tile'
 
 export default definePromoTile({
   code: 'small',
@@ -7,4 +7,4 @@ export default definePromoTile({
   width: 440,
   height: 280,
   waitFor: 'modreq',
-});
+})

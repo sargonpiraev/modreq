@@ -1,15 +1,15 @@
-import { test as base, chromium, type BrowserContext } from '@playwright/test';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { test as base, chromium, type BrowserContext } from '@playwright/test'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const extappRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const pathToExtension = path.join(extappRoot, '.output/chrome-mv3');
+const extappRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const pathToExtension = path.join(extappRoot, '.output/chrome-mv3')
 
 export const test = base.extend<{
-  context: BrowserContext;
-  extensionId: string;
+  context: BrowserContext
+  extensionId: string
 }>({
-  context: async ({}, use) => {
+  context: async (_fixtures, use) => {
     // channel: 'chromium' enables extension loading in headless (CI / Docker).
     const context = await chromium.launchPersistentContext('', {
       channel: 'chromium',
@@ -17,19 +17,19 @@ export const test = base.extend<{
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
       ],
-    });
-    await use(context);
-    await context.close();
+    })
+    await use(context)
+    await context.close()
   },
   extensionId: async ({ context }, use) => {
-    let [serviceWorker] = context.serviceWorkers();
+    let [serviceWorker] = context.serviceWorkers()
     if (!serviceWorker) {
-      serviceWorker = await context.waitForEvent('serviceworker');
+      serviceWorker = await context.waitForEvent('serviceworker')
     }
 
-    const extensionId = serviceWorker.url().split('/')[2];
-    await use(extensionId);
+    const extensionId = serviceWorker.url().split('/')[2]
+    await use(extensionId)
   },
-});
+})
 
-export const expect = test.expect;
+export const expect = test.expect

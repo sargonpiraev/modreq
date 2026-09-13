@@ -7,15 +7,15 @@
 Package: [`@sargonpiraev/pulumi-apps`](https://www.npmjs.com/package/@sargonpiraev/pulumi-apps)  
 Class / type token: `Extapp` / `sargonpiraev:apps:Extapp`
 
-Thin project wrapper: [`extapp-analytics.ts`](./extapp-analytics.ts) → `createExtappProductAnalytics`.
+Construct in `pulumi/index.ts`: `new Extapp(...)` from `@sargonpiraev/pulumi-apps`.
 
-| Child | Notes |
-|---|---|
-| `gcp:bigquery/dataset:Dataset` `product_cws` | EU; adopt/protect from former meta ownership |
-| `modreq_listing_daily` table | public listing snapshot |
-| Gen1 CF `cws-listing-etl` + Scheduler `cws-listing-daily` | source in [`functions/cws-listing`](./functions/cws-listing/) |
-| SA `cws-etl-runner` | BQ jobUser + dataset dataEditor |
-| Scheduler SA | live accountId `cws-listing-scheduler` (not Extapp default `cws-listing-sched`) |
+| Child                                                     | Notes                                                                           |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `gcp:bigquery/dataset:Dataset` `product_cws`              | EU; adopt/protect from former meta ownership                                    |
+| `modreq_listing_daily` table                              | public listing snapshot                                                         |
+| Gen1 CF `cws-listing-etl` + Scheduler `cws-listing-daily` | source in [`functions/cws-listing`](./functions/cws-listing/)                   |
+| SA `cws-etl-runner`                                       | BQ jobUser + dataset dataEditor                                                 |
+| Scheduler SA                                              | live accountId `cws-listing-scheduler` (not Extapp default `cws-listing-sched`) |
 
 Dashboard CSV scrape / `modreq_metrics_daily` (Playwright) is **not** in `Extapp` — still **meta-owned** (`cws-modreq-metrics-daily` + `etl_runs` + reader IAM).
 
@@ -48,15 +48,15 @@ Live resources were imported into modreq `prod`, then removed from meta **state 
 
 ### Imported into modreq
 
-| Logical name | GCP id |
-|---|---|
-| `extapp-dataset` | `projects/sargonpiraev/datasets/product_cws` |
-| `extapp-loader` | `…/cws-etl-runner@sargonpiraev.iam.gserviceaccount.com` |
-| `extapp-etl-scheduler` | `…/cws-listing-scheduler@…` |
-| `extapp-etl-source` | `sargonpiraev-cws-listing-source` |
-| `extapp-listing-table` | `…/tables/modreq_listing_daily` |
-| `extapp-etl-fn` | `…/functions/cws-listing-etl` |
-| `extapp-etl-schedule` | `…/jobs/cws-listing-daily` |
+| Logical name           | GCP id                                                  |
+| ---------------------- | ------------------------------------------------------- |
+| `extapp-dataset`       | `projects/sargonpiraev/datasets/product_cws`            |
+| `extapp-loader`        | `…/cws-etl-runner@sargonpiraev.iam.gserviceaccount.com` |
+| `extapp-etl-scheduler` | `…/cws-listing-scheduler@…`                             |
+| `extapp-etl-source`    | `sargonpiraev-cws-listing-source`                       |
+| `extapp-listing-table` | `…/tables/modreq_listing_daily`                         |
+| `extapp-etl-fn`        | `…/functions/cws-listing-etl`                           |
+| `extapp-etl-schedule`  | `…/jobs/cws-listing-daily`                              |
 
 IAM bindings + project API enables + CF source zip were **created** (idempotent) rather than imported.
 
@@ -68,12 +68,12 @@ Dataset delete required stripping stale Pulumi deps from still-meta resources (`
 
 ### Leftovers (intentional / later)
 
-| Item | Owner / status |
-|---|---|
-| `product_cws.modreq_metrics_daily` + `etl_runs` | **meta** still |
-| `cws-reader-dataset-viewer` (bq-analytics-reader) | **meta** still |
-| Optional Cloud Run dashboard ETL (`CWS_ETL_IMAGE`) | meta, gated by env |
-| Secret `cws-modreq-dashboard-storage-state` | manual / IAM gap |
-| Meta stack outputs (`cwsListingFunctionUrl`, …) | point at modreq; refresh on next meta `up` |
-| Unrelated meta preview: `finops-sources-source-zip` replace | not part of CWS cutover |
-| Extapp default `schedulerAccountId` | keep pin `cws-listing-scheduler` in this wrapper |
+| Item                                                        | Owner / status                                   |
+| ----------------------------------------------------------- | ------------------------------------------------ |
+| `product_cws.modreq_metrics_daily` + `etl_runs`             | **meta** still                                   |
+| `cws-reader-dataset-viewer` (bq-analytics-reader)           | **meta** still                                   |
+| Optional Cloud Run dashboard ETL (`CWS_ETL_IMAGE`)          | meta, gated by env                               |
+| Secret `cws-modreq-dashboard-storage-state`                 | manual / IAM gap                                 |
+| Meta stack outputs (`cwsListingFunctionUrl`, …)             | point at modreq; refresh on next meta `up`       |
+| Unrelated meta preview: `finops-sources-source-zip` replace | not part of CWS cutover                          |
+| Extapp default `schedulerAccountId`                         | keep pin `cws-listing-scheduler` in this wrapper |

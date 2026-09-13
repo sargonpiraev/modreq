@@ -6,13 +6,13 @@ Chrome extension to modify HTTP request headers and cookies — replace or appen
 
 ## Apps
 
-| App | Role |
-| --- | --- |
-| `apps/extapp` | WXT MV3 extension |
-| `apps/webapp` | Product landing (Next.js → GitHub Pages) |
-| `apps/wuiapp` | Storybook (UI stories for store creatives) |
+| App           | Role                                                |
+| ------------- | --------------------------------------------------- |
+| `apps/extapp` | WXT MV3 extension                                   |
+| `apps/webapp` | Product landing (Next.js → GitHub Pages)            |
+| `apps/wuiapp` | Storybook (UI stories for store creatives)          |
 | `apps/imgapp` | Playwright stills → store screenshots / promo tiles |
-| `apps/vidapp` | Remotion promo video |
+| `apps/vidapp` | Remotion promo video                                |
 
 ## Develop
 

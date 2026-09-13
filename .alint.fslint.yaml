@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=https://alint.org/_alint/configuration/schema.json
 # Product shape via @sargonpiraev/fslint-config (install the package).
 version: 1
+# Linked @sargonpiraev/fslint-config realpaths into sibling shared/; alint requires this.
+allow_out_of_root: true
 respect_gitignore: false
 ignore:
   - 'node_modules/'
@@ -9,3 +11,10 @@ ignore:
   - '**/.git/'
 extends:
   - ./node_modules/@sargonpiraev/fslint-config/project.yaml
+  - ./node_modules/@sargonpiraev/fslint-config/project__apps__webapp.yaml
+  - ./node_modules/@sargonpiraev/fslint-config/project__apps__mobapp.yaml
+  - ./node_modules/@sargonpiraev/fslint-config/project__apps__extapp.yaml
+  - ./node_modules/@sargonpiraev/fslint-config/project__apps__localproxy.yaml
+  - ./node_modules/@sargonpiraev/fslint-config/project__packages__oapi-client.yaml
+  - ./node_modules/@sargonpiraev/fslint-config/project__packages__db-client.yaml
+  - ./node_modules/@sargonpiraev/fslint-config/project__packages__scrape-client.yaml

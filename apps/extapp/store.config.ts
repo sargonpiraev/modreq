@@ -1,4 +1,4 @@
-import type { StoreConfig } from './store.config.types';
+import type { StoreConfig } from './store.config.types'
 
 /**
  * modreq Chrome Web Store config — Expo `store.config` convention.
@@ -107,6 +107,6 @@ Privacy: all rules are stored locally. modreq does not collect or send your data
       },
     },
   },
-} satisfies StoreConfig;
+} satisfies StoreConfig
 
-export default storeConfig;
+export default storeConfig

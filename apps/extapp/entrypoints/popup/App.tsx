@@ -1,30 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-import { ModreqPopup, type ModreqView } from '@repo/ui/modreq/popup';
-import {
-  cookieRules,
-  headerRules,
-  redirectRules,
-  responseHeaderRules,
-} from '@/lib/storage';
-import type {
-  CookieRule,
-  HeaderRule,
-  RedirectRule,
-  ResponseHeaderRule,
-} from '@/lib/types';
+import { ModreqPopup, type ModreqView } from '@repo/ui/modreq/popup'
+import { cookieRules, headerRules, redirectRules, responseHeaderRules } from '@/lib/storage'
+import type { CookieRule, HeaderRule, RedirectRule, ResponseHeaderRule } from '@/lib/types'
 
 function createId() {
-  return crypto.randomUUID();
+  return crypto.randomUUID()
 }
 
 function App() {
-  const [headers, setHeaders] = useState<HeaderRule[]>([]);
-  const [cookies, setCookies] = useState<CookieRule[]>([]);
-  const [redirects, setRedirects] = useState<RedirectRule[]>([]);
-  const [responseHeaders, setResponseHeaders] = useState<ResponseHeaderRule[]>([]);
-  const [loaded, setLoaded] = useState(false);
-  const [view, setView] = useState<ModreqView>({ kind: 'home' });
+  const [headers, setHeaders] = useState<HeaderRule[]>([])
+  const [cookies, setCookies] = useState<CookieRule[]>([])
+  const [redirects, setRedirects] = useState<RedirectRule[]>([])
+  const [responseHeaders, setResponseHeaders] = useState<ResponseHeaderRule[]>([])
+  const [loaded, setLoaded] = useState(false)
+  const [view, setView] = useState<ModreqView>({ kind: 'home' })
 
   useEffect(() => {
     void Promise.all([
@@ -37,76 +27,71 @@ function App() {
         nextHeaders.map((rule) => ({
           ...rule,
           operation: rule.operation ?? 'set',
-        })),
-      );
-      setCookies(nextCookies);
-      setRedirects(nextRedirects);
+        }))
+      )
+      setCookies(nextCookies)
+      setRedirects(nextRedirects)
       setResponseHeaders(
         nextResponseHeaders.map((rule) => ({
           ...rule,
           operation: rule.operation ?? 'set',
-        })),
-      );
-      setLoaded(true);
-    });
-  }, []);
+        }))
+      )
+      setLoaded(true)
+    })
+  }, [])
 
   useEffect(() => {
-    if (!loaded) return;
-    void headerRules.setValue(headers);
-  }, [headers, loaded]);
+    if (!loaded) return
+    void headerRules.setValue(headers)
+  }, [headers, loaded])
 
   useEffect(() => {
-    if (!loaded) return;
-    void cookieRules.setValue(cookies);
-  }, [cookies, loaded]);
+    if (!loaded) return
+    void cookieRules.setValue(cookies)
+  }, [cookies, loaded])
 
   useEffect(() => {
-    if (!loaded) return;
-    void redirectRules.setValue(redirects);
-  }, [redirects, loaded]);
+    if (!loaded) return
+    void redirectRules.setValue(redirects)
+  }, [redirects, loaded])
 
   useEffect(() => {
-    if (!loaded) return;
-    void responseHeaderRules.setValue(responseHeaders);
-  }, [responseHeaders, loaded]);
+    if (!loaded) return
+    void responseHeaderRules.setValue(responseHeaders)
+  }, [responseHeaders, loaded])
 
-  function startNewModification(
-    type: 'header' | 'cookie' | 'redirect' | 'response-header',
-  ) {
+  function startNewModification(type: 'header' | 'cookie' | 'redirect' | 'response-header') {
     if (type === 'header') {
-      const id = createId();
+      const id = createId()
       setHeaders((current) => [
         ...current,
         { id, enabled: true, name: '', value: '', operation: 'set', urlFilter: '*' },
-      ]);
-      setView({ kind: 'edit-header', ruleId: id });
-      return;
+      ])
+      setView({ kind: 'edit-header', ruleId: id })
+      return
     }
 
     if (type === 'cookie') {
-      const id = createId();
-      setCookies((current) => [...current, { id, enabled: true, name: '', value: '' }]);
-      setView({ kind: 'edit-cookie', ruleId: id });
-      return;
+      const id = createId()
+      setCookies((current) => [...current, { id, enabled: true, name: '', value: '' }])
+      setView({ kind: 'edit-cookie', ruleId: id })
+      return
     }
 
     if (type === 'redirect') {
-      const id = createId();
-      setRedirects((current) => [
-        ...current,
-        { id, enabled: true, urlFilter: '', redirectUrl: '' },
-      ]);
-      setView({ kind: 'edit-redirect', ruleId: id });
-      return;
+      const id = createId()
+      setRedirects((current) => [...current, { id, enabled: true, urlFilter: '', redirectUrl: '' }])
+      setView({ kind: 'edit-redirect', ruleId: id })
+      return
     }
 
-    const id = createId();
+    const id = createId()
     setResponseHeaders((current) => [
       ...current,
       { id, enabled: true, name: '', value: '', operation: 'set', urlFilter: '*' },
-    ]);
-    setView({ kind: 'edit-response-header', ruleId: id });
+    ])
+    setView({ kind: 'edit-response-header', ruleId: id })
   }
 
   return (
@@ -124,11 +109,11 @@ function App() {
       onViewChange={setView}
       onStartNewModification={startNewModification}
       onApplyCookies={async () => {
-        await cookieRules.setValue(cookies);
-        await browser.runtime.sendMessage({ type: 'applyCookies' });
+        await cookieRules.setValue(cookies)
+        await browser.runtime.sendMessage({ type: 'applyCookies' })
       }}
     />
-  );
+  )
 }
 
-export default App;
+export default App

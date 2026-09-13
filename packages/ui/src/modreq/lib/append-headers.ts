@@ -25,10 +25,10 @@ export const APPENDABLE_REQUEST_HEADERS = [
   'via',
   'want-digest',
   'x-forwarded-for',
-] as const;
+] as const
 
-const appendableHeaderSet = new Set<string>(APPENDABLE_REQUEST_HEADERS);
+const appendableHeaderSet = new Set<string>(APPENDABLE_REQUEST_HEADERS)
 
 export function isAppendableRequestHeader(name: string) {
-  return appendableHeaderSet.has(name.trim());
+  return appendableHeaderSet.has(name.trim())
 }

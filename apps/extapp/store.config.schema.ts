@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 /**
  * Zod validation for store.config.ts `storeListing` section.
@@ -8,52 +8,53 @@ import { z } from 'zod';
  * https://developer.chrome.com/docs/webstore/images
  */
 
-const pngOrJpeg = /\.(png|jpe?g)$/i;
+const pngOrJpeg = /\.(png|jpe?g)$/i
 
 const ImageAsset = z.object({
   source: z.string().regex(pngOrJpeg, 'must be a .png or .jpg/.jpeg file'),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
   noAlpha: z.boolean(),
-});
+})
 
-export type ImageAssetSpec = z.infer<typeof ImageAsset>;
+export type ImageAssetSpec = z.infer<typeof ImageAsset>
 
 const StoreIcon = ImageAsset.extend({
   width: z.literal(128),
   height: z.literal(128),
   noAlpha: z.literal(false),
-});
+})
 
 const Screenshot = ImageAsset.extend({
   noAlpha: z.literal(true),
-}).refine(
-  (a) =>
-    (a.width === 1280 && a.height === 800) || (a.width === 640 && a.height === 400),
-  { message: 'screenshot must be 1280x800 or 640x400' },
-);
+}).refine((a) => (a.width === 1280 && a.height === 800) || (a.width === 640 && a.height === 400), {
+  message: 'screenshot must be 1280x800 or 640x400',
+})
 
 const SmallPromoTile = ImageAsset.extend({
   width: z.literal(440),
   height: z.literal(280),
   noAlpha: z.literal(true),
-});
+})
 
 const MarqueePromoTile = ImageAsset.extend({
   width: z.literal(1400),
   height: z.literal(560),
   noAlpha: z.literal(true),
-});
+})
 
 const PromoVideo = z.object({
-  youtubeUrl: z.string().url().regex(/youtube\.com|youtu\.be/, 'must be a YouTube URL'),
-});
+  youtubeUrl: z
+    .string()
+    .url()
+    .regex(/youtube\.com|youtu\.be/, 'must be a YouTube URL'),
+})
 
 const ListingCopy = z.object({
   name: z.string().min(1).max(45),
   shortDescription: z.string().min(1).max(132),
   detailedDescription: z.string().min(1),
-});
+})
 
 export const StoreListingSchema = z.object({
   /** Dashboard-only text fields (Chrome Web Store has no listing write API). */
@@ -65,9 +66,9 @@ export const StoreListingSchema = z.object({
     smallPromoTile: SmallPromoTile,
     marqueePromoTile: MarqueePromoTile.optional(),
   }),
-});
+})
 
-export type StoreListing = z.infer<typeof StoreListingSchema>;
+export type StoreListing = z.infer<typeof StoreListingSchema>
 
 export const StoreConfigSchema = z.object({
   itemId: z.string(),
@@ -78,11 +79,11 @@ export const StoreConfigSchema = z.object({
       .array(
         z.object({
           deployPercentage: z.number().min(0).max(100).nullable().optional(),
-        }),
+        })
       )
       .optional(),
     publishType: z.string().optional(),
     skipReview: z.boolean().optional(),
   }),
   storeListing: StoreListingSchema,
-});
+})

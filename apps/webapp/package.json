@@ -2,23 +2,26 @@
   "name": "webapp",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "next build",
     "check-types": "tsc --noEmit",
     "dev": "next dev --port 3000",
     "lint": "eslint",
     "test": "tsc --noEmit",
-    "test:analytics": "playwright test --project=analytics",
-    "test:cwv": "playwright test --project=cwv",
-    "test:functional": "playwright test --project=functional",
-    "test:seo": "playwright test --project=seo",
-    "test:spec": "playwright test --project=functional --project=seo --project=analytics",
-    "test:visual": "playwright test --project=visual --project=visual-mobile"
+    "test:spec": "playwright test --grep '@feat|@seokit|@analytics'",
+    "test:spec:feat": "playwright test --grep @feat",
+    "test:spec:seokit": "playwright test --grep @seokit",
+    "test:spec:perf": "playwright test --grep @perf",
+    "test:spec:visual": "playwright test --grep @visual",
+    "test:spec:analytics": "playwright test --grep @analytics"
   },
   "dependencies": {
     "next": "16.2.11",
     "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react-dom": "19.2.7",
+    "zod": "^4.4.3",
+    "next-intl": "^4.13.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
@@ -30,7 +33,10 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.2.11",
     "tailwindcss": "^4",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.11",
+    "@types/jest": "^30.0.0"
   },
   "optionalDependencies": {
     "@next/swc-linux-x64-gnu": "16.2.11"

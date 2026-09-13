@@ -1,10 +1,11 @@
-import Image from 'next/image';
+import Image from 'next/image'
+import { env } from '@/env'
 
 const CHROME_STORE_URL =
-  'https://chromewebstore.google.com/detail/modreq/calgkmpccmankefjidecombecabommmm';
+  'https://chromewebstore.google.com/detail/modreq/calgkmpccmankefjidecombecabommmm'
 
 /** Match next.config `basePath` — next/image does not always prefix static public paths. */
-const BASE_PATH = process.env.NODE_ENV === 'production' ? '/modreq' : '';
+const BASE_PATH = env.NODE_ENV === 'production' ? '/modreq' : ''
 
 const screenshots = [
   {
@@ -27,14 +28,14 @@ const screenshots = [
     src: `${BASE_PATH}/screenshots/screenshot-1280x800-header-and-cookie-rules.png`,
     alt: 'Header and cookie rules together',
   },
-] as const;
+] as const
 
 const features = [
   'Replace or append HTTP request headers',
   'Override cookies on the current site',
   'Toggle each rule on or off instantly',
   'Rules stay local — no account, no tracking',
-] as const;
+] as const
 
 export default function HomePage() {
   return (
@@ -72,8 +73,8 @@ export default function HomePage() {
               Modify HTTP headers and cookies in Chrome.
             </p>
             <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
-              Replace or append request headers. Override cookies. A free ModHeader
-              alternative for developers and QA.
+              Replace or append request headers. Override cookies. A free ModHeader alternative for
+              developers and QA.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
@@ -94,10 +95,7 @@ export default function HomePage() {
           </div>
 
           <div className="animate-rise-delay relative">
-            <div
-              aria-hidden
-              className="absolute -inset-8 rounded-full bg-primary/15 blur-3xl"
-            />
+            <div aria-hidden className="absolute -inset-8 rounded-full bg-primary/15 blur-3xl" />
             <div className="animate-drift relative overflow-hidden rounded-[1.75rem] border border-line bg-surface/80 shadow-[0_30px_80px_oklch(0_0_0/45%)]">
               <Image
                 src={screenshots[0].src}
@@ -160,5 +158,5 @@ export default function HomePage() {
         </a>
       </footer>
     </div>
-  );
+  )
 }

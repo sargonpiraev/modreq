@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
 
-import { ModreqPopup, type ModreqView } from '@repo/ui/modreq/popup';
-import { demoCookie, demoHeader } from '@repo/ui/modreq/demo-data';
-import { MODREQ_POPUP_HEIGHT, MODREQ_POPUP_WIDTH } from '@repo/ui/modreq/layout';
-import type { RedirectRule, ResponseHeaderRule } from '@repo/ui/modreq/types';
+import { ModreqPopup, type ModreqView } from '@repo/ui/modreq/popup'
+import { demoCookie, demoHeader } from '@repo/ui/modreq/demo-data'
+import { MODREQ_POPUP_HEIGHT, MODREQ_POPUP_WIDTH } from '@repo/ui/modreq/layout'
+import type { RedirectRule, ResponseHeaderRule } from '@repo/ui/modreq/types'
 
 function PopupDemo() {
-  const [headers, setHeaders] = useState([demoHeader]);
-  const [cookies, setCookies] = useState([demoCookie]);
-  const [redirects, setRedirects] = useState<RedirectRule[]>([]);
-  const [responseHeaders, setResponseHeaders] = useState<ResponseHeaderRule[]>([]);
-  const [view, setView] = useState<ModreqView>({ kind: 'home' });
+  const [headers, setHeaders] = useState([demoHeader])
+  const [cookies, setCookies] = useState([demoCookie])
+  const [redirects, setRedirects] = useState<RedirectRule[]>([])
+  const [responseHeaders, setResponseHeaders] = useState<ResponseHeaderRule[]>([])
+  const [view, setView] = useState<ModreqView>({ kind: 'home' })
 
   return (
     <ModreqPopup
@@ -28,13 +28,13 @@ function PopupDemo() {
       onViewChange={setView}
       onStartNewModification={() => {}}
     />
-  );
+  )
 }
 
 function ScaledPopupPreview({ maxWidth, maxHeight }: { maxWidth: number; maxHeight: number }) {
-  const scale = Math.min(maxWidth / MODREQ_POPUP_WIDTH, maxHeight / MODREQ_POPUP_HEIGHT);
-  const width = MODREQ_POPUP_WIDTH * scale;
-  const height = MODREQ_POPUP_HEIGHT * scale;
+  const scale = Math.min(maxWidth / MODREQ_POPUP_WIDTH, maxHeight / MODREQ_POPUP_HEIGHT)
+  const width = MODREQ_POPUP_WIDTH * scale
+  const height = MODREQ_POPUP_HEIGHT * scale
 
   return (
     <div
@@ -52,18 +52,18 @@ function ScaledPopupPreview({ maxWidth, maxHeight }: { maxWidth: number; maxHeig
         <PopupDemo />
       </div>
     </div>
-  );
+  )
 }
 
 function SmallPromoTile() {
-  const width = 440;
-  const height = 280;
-  const paddingX = 24;
-  const paddingY = 16;
-  const gap = 16;
-  const textWidth = 176;
-  const popupMaxWidth = width - paddingX * 2 - gap - textWidth;
-  const popupMaxHeight = height - paddingY * 2;
+  const width = 440
+  const height = 280
+  const paddingX = 24
+  const paddingY = 16
+  const gap = 16
+  const textWidth = 176
+  const popupMaxWidth = width - paddingX * 2 - gap - textWidth
+  const popupMaxHeight = height - paddingY * 2
 
   return (
     <div
@@ -79,17 +79,17 @@ function SmallPromoTile() {
         </p>
       </div>
     </div>
-  );
+  )
 }
 
 function MarqueePromoTile() {
-  const width = 1400;
-  const height = 560;
-  const leftWidth = 480;
-  const paddingRight = 48;
-  const paddingY = 24;
-  const popupMaxWidth = width - leftWidth - paddingRight;
-  const popupMaxHeight = height - paddingY * 2;
+  const width = 1400
+  const height = 560
+  const leftWidth = 480
+  const paddingRight = 48
+  const paddingY = 24
+  const popupMaxWidth = width - leftWidth - paddingRight
+  const popupMaxHeight = height - paddingY * 2
 
   return (
     <div
@@ -111,26 +111,29 @@ function MarqueePromoTile() {
           <li>Toggle rules on and off instantly</li>
         </ul>
       </div>
-      <div className="flex flex-1 items-center justify-center" style={{ paddingRight, paddingBlock: paddingY }}>
+      <div
+        className="flex flex-1 items-center justify-center"
+        style={{ paddingRight, paddingBlock: paddingY }}
+      >
         <ScaledPopupPreview maxWidth={popupMaxWidth} maxHeight={popupMaxHeight} />
       </div>
     </div>
-  );
+  )
 }
 
 const meta = {
   title: 'Store/PromoTiles',
   parameters: { skipShotDecorator: true, layout: 'fullscreen' },
   tags: ['store-promo'],
-} satisfies Meta;
+} satisfies Meta
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Small: Story = {
   render: () => <SmallPromoTile />,
-};
+}
 
 export const Marquee: Story = {
   render: () => <MarqueePromoTile />,
-};
+}

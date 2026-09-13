@@ -1,9 +1,14 @@
-import type { NextConfig } from 'next';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const appDir = path.dirname(fileURLToPath(import.meta.url));
-const isProd = process.env.NODE_ENV === 'production';
+import { env } from './src/env'
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
+
+const appDir = path.dirname(fileURLToPath(import.meta.url))
+const isProd = env.NODE_ENV === 'production'
 
 const nextConfig: NextConfig = {
   output: 'export',
@@ -16,6 +21,6 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(appDir, '../..'),
   },
-};
+}
 
-export default nextConfig;
+export default withNextIntl(nextConfig)

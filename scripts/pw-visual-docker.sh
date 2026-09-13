@@ -3,7 +3,7 @@
 # extapp loads a packed extension via launchPersistentContext — that Chromium must be Linux,
 # so those tests run as the image Playwright runner against a host-built `.output` (no npm ci).
 # CI: already inside that image — workspace visual only (no nested Docker).
-# Usage: npm run test:visual | npm run test:visual:update
+# Usage: npm run test:spec:visual | npm run test:spec:visual:update
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -18,17 +18,17 @@ CID="modreq-pw-visual"
 
 run_webapp_visual() {
   if [ "${UPDATE_SNAPSHOTS:-}" = "--update-snapshots" ]; then
-    npm run test:visual --workspace=webapp -- --update-snapshots
+    npm run test:spec:visual --workspace=webapp -- --update-snapshots
   else
-    npm run test:visual --workspace=webapp
+    npm run test:spec:visual --workspace=webapp
   fi
 }
 
 run_extapp_visual() {
   if [ "${UPDATE_SNAPSHOTS:-}" = "--update-snapshots" ]; then
-    npm run test:visual --workspace=extapp -- --update-snapshots
+    npm run test:spec:visual --workspace=extapp -- --update-snapshots
   else
-    npm run test:visual --workspace=extapp
+    npm run test:spec:visual --workspace=extapp
   fi
 }
 

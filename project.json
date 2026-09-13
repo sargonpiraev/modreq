@@ -2,13 +2,6 @@
   "name": "modreq",
   "$schema": "./node_modules/@sargonpiraev/eslint-config/build/schemas/project__project.json",
   "projectType": "application",
-  "tags": [
-    "project",
-    "type:app",
-    "stack:next",
-    "status:active",
-    "pulumi"
-  ],
   "metadata": {
     "description": "Modreq web project",
     "technologies": [
@@ -16,7 +9,8 @@
       "turbo",
       "playwright",
       "wxt"
-    ]
+    ],
+    "portBegins": 50400
   },
   "targets": {
     "test": {
@@ -89,44 +83,9 @@
         "cwd": "modreq"
       }
     },
-    "test:functional": {
-      "cache": false,
-      "command": "npm run test:functional",
-      "options": {
-        "cwd": "modreq"
-      }
-    },
-    "test:seo": {
-      "cache": false,
-      "command": "npm run test:seo",
-      "options": {
-        "cwd": "modreq"
-      }
-    },
-    "test:analytics": {
-      "cache": false,
-      "command": "npm run test:analytics",
-      "options": {
-        "cwd": "modreq"
-      }
-    },
     "test:spec": {
       "cache": false,
       "command": "npm run test:spec",
-      "options": {
-        "cwd": "modreq"
-      }
-    },
-    "test:visual": {
-      "cache": false,
-      "command": "npm run test:visual",
-      "options": {
-        "cwd": "modreq"
-      }
-    },
-    "test:cwv": {
-      "cache": false,
-      "command": "npm run test:cwv",
       "options": {
         "cwd": "modreq"
       }
@@ -155,6 +114,41 @@
     "test:configlint": {
       "cache": false,
       "command": "npm run test:configlint",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:spec:feat": {
+      "cache": false,
+      "command": "npm run test:spec:feat",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:spec:seokit": {
+      "cache": false,
+      "command": "npm run test:spec:seokit",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:spec:perf": {
+      "cache": false,
+      "command": "npm run test:spec:perf",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "test:spec:visual": {
+      "cache": false,
+      "command": "npm run test:spec:visual",
+      "options": {
+        "cwd": "modreq"
+      }
+    },
+    "format": {
+      "cache": false,
+      "command": "npm run format",
       "options": {
         "cwd": "modreq"
       }

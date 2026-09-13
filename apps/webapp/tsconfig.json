@@ -41,6 +41,7 @@
     "e2e",
     "playwright",
     "playwright-report",
-    "test-results"
+    "test-results",
+    "pulumi.ts"
   ]
 }

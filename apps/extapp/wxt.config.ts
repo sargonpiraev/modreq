@@ -1,6 +1,6 @@
-import tailwindcss from '@tailwindcss/vite';
-import { resolve } from 'node:path';
-import { defineConfig } from 'wxt';
+import tailwindcss from '@tailwindcss/vite'
+import { resolve } from 'node:path'
+import { defineConfig } from 'wxt'
 
 export default defineConfig({
   modules: ['@wxt-dev/module-react'],
@@ -29,4 +29,4 @@ export default defineConfig({
   webExt: {
     startUrls: ['https://httpbingo.org/headers'],
   },
-});
+})

@@ -14,12 +14,12 @@
     "postinstall": "wxt prepare",
     "submit": "wxt submit --chrome-zip .output/extapp-$npm_package_version-chrome.zip",
     "test": "tsc --noEmit",
-    "test:functional": "npm run build && playwright test --project=functional",
-    "test:spec": "npm run test:functional",
-    "test:visual": "npm run build && playwright test --project=visual",
+    "test:spec": "npm run test:spec:feat",
     "validate:store": "tsx scripts/validate-store-assets.ts",
     "zip": "wxt zip",
-    "zip:firefox": "wxt zip -b firefox"
+    "zip:firefox": "wxt zip -b firefox",
+    "test:spec:feat": "npm run build && playwright test --grep @feat",
+    "test:spec:visual": "npm run build && playwright test --grep @visual"
   },
   "dependencies": {
     "@repo/ui": "*",

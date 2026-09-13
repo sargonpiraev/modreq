@@ -1,11 +1,11 @@
-import { interpolate } from 'remotion';
+import { interpolate } from "remotion";
 
 import {
   CURSOR_WAYPOINTS,
   START_CURSOR,
   type CursorWaypoint,
-} from './cursor-path';
-import { getTargetCenter, type Point } from './measure-target';
+} from "./cursor-path";
+import { getTargetCenter, type Point } from "./measure-target";
 
 function getActiveSegment(frame: number): [CursorWaypoint, CursorWaypoint] {
   for (let i = 0; i < CURSOR_WAYPOINTS.length - 1; i += 1) {
@@ -37,8 +37,8 @@ export function computeCursorPosition(
   const toPos = getTargetCenter(container, to.target, scale);
 
   const progress = interpolate(frame, [from.frame, to.frame], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
   });
 
   if (!fromPos) {
