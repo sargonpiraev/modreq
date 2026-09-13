@@ -1,6 +1,8 @@
 import { SITE_URL } from '@/lib/sitemap-pages'
 import { renderSitemapIndexXml } from '@/lib/sitemap-xml'
 
+export const dynamic = 'force-static'
+
 export async function GET() {
   const body = renderSitemapIndexXml([`${SITE_URL}/sitemap/pages.xml`])
   return new Response(body, {

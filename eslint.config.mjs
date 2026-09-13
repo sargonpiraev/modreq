@@ -1,4 +1,4 @@
-import project from '@sargonpiraev/eslint-config/project';
+import project from '@sargonpiraev/eslint-config/project'
 
 export default [
   {
@@ -16,4 +16,4 @@ export default [
     ],
   },
   ...project,
-];
+]

@@ -4,7 +4,5 @@
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx"
   },
-  "exclude": [
-    "pulumi.ts"
-  ]
+  "exclude": ["pulumi.ts"]
 }

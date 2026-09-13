@@ -24,7 +24,7 @@
   },
   "scripts": {
     "dev": "remotion studio",
-    "build": "remotion bundle",
+    "build": "rm -rf build && remotion bundle",
     "render": "remotion render MyComp ../extapp/store/chrome/modreq-flow.mp4",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"

@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "pack:cws-etl": "npm --prefix functions/cws-listing run pack:deploy",
-    "preview": "npm run pack:cws-etl && pulumi preview",
-    "up": "npm run pack:cws-etl && pulumi up --yes",
     "destroy": "pulumi destroy --yes",
     "postinstall": "node ./scripts/ensure-pulumi-provider-server.mjs",
-    "test:pulumi": "tsx --test extapp.test.ts webapp.test.ts index-clusters.test.ts"
+    "pack:cws-etl": "npm --prefix functions/cws-listing run pack:deploy",
+    "preview": "npm run pack:cws-etl && pulumi preview",
+    "test:pulumi": "tsx --test extapp.test.ts webapp.test.ts index-clusters.test.ts",
+    "up": "npm run pack:cws-etl && pulumi up --yes"
   },
   "dependencies": {
     "@pulumi/gcp": "^9.34.1",

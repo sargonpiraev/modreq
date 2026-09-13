@@ -8,8 +8,5 @@
     "esModuleInterop": true,
     "noEmit": true
   },
-  "include": [
-    "*.ts",
-    "../apps/*/pulumi.ts"
-  ]
+  "include": ["*.ts", "../apps/*/pulumi.ts"]
 }

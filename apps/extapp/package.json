@@ -15,11 +15,11 @@
     "submit": "wxt submit --chrome-zip .output/extapp-$npm_package_version-chrome.zip",
     "test": "tsc --noEmit",
     "test:spec": "npm run test:spec:feat",
+    "test:spec:feat": "npm run build && playwright test --grep @feat",
+    "test:spec:visual": "npm run build && playwright test --grep @visual",
     "validate:store": "tsx scripts/validate-store-assets.ts",
     "zip": "wxt zip",
-    "zip:firefox": "wxt zip -b firefox",
-    "test:spec:feat": "npm run build && playwright test --grep @feat",
-    "test:spec:visual": "npm run build && playwright test --grep @visual"
+    "zip:firefox": "wxt zip -b firefox"
   },
   "dependencies": {
     "@repo/ui": "*",

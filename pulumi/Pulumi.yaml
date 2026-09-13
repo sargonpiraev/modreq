@@ -3,5 +3,5 @@ runtime:
   name: nodejs
   options:
     typescript: false
-    nodeargs: "--import tsx/esm"
+    nodeargs: '--import tsx/esm'
 description: modreq infrastructure — Extapp CWS listing → BigQuery cws

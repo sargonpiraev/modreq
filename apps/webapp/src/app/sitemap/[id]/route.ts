@@ -1,6 +1,12 @@
 import { getPagesSitemap } from '@/lib/sitemap-pages'
 import { renderSitemapUrlsetXml } from '@/lib/sitemap-xml'
 
+export const dynamic = 'force-static'
+
+export function generateStaticParams() {
+  return [{ id: 'pages' }]
+}
+
 type RouteProps = {
   params: Promise<{ id: string }>
 }

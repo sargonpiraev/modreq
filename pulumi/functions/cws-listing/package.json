@@ -7,11 +7,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "pack:deploy": "npm run build && rm -rf deploy && mkdir -p deploy/lib && node ./scripts/write-deploy-package.mjs && cp -R lib/. deploy/lib/",
-    "start": "node lib/cli.js",
-    "smoke": "npm run build && node lib/cli.js"
-  },
-  "engines": {
-    "node": ">=20"
+    "smoke": "npm run build && node lib/cli.js",
+    "start": "node lib/cli.js"
   },
   "dependencies": {
     "@google-cloud/bigquery": "^7.9.4"
@@ -19,5 +16,8 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
