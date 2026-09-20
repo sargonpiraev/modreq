@@ -9,7 +9,9 @@ export const test = base.extend<{
   context: BrowserContext
   extensionId: string
 }>({
-  context: async (_fixtures, use) => {
+  // Playwright requires object destructuring; no fixtures are used here.
+  // eslint-disable-next-line no-empty-pattern -- launchPersistentContext owns the browser
+  context: async ({}, use) => {
     // channel: 'chromium' enables extension loading in headless (CI / Docker).
     const context = await chromium.launchPersistentContext('', {
       channel: 'chromium',
