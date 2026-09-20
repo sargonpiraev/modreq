@@ -3,6 +3,7 @@ node_modules/
 Pulumi.*.yaml
 !Pulumi.yaml
 .env
+!.env.example
 .env.*
 
 !.env.example
