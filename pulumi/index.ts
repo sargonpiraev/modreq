@@ -1,7 +1,6 @@
 import { loadWorkspaceEnv } from './workspace-env.ts'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import * as pulumi from '@pulumi/pulumi'
 import {
   CWS_DEV_CONSOLE_URL,
   cwsPublicListingUrl,
@@ -12,7 +11,7 @@ import { webapp } from '../apps/webapp/pulumi.ts'
 import { cwsItemIdValue, cwsItemSlugValue, extapp } from '../apps/extapp/pulumi.ts'
 
 /**
- * Official providers: GCP via shared Extapp (CWS listing → `cws`).
+ * Official providers: GCP via shared Extapp (CWS item id; metrics scrape is meta chrome-vm).
  */
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(__dirname, '..')
@@ -20,7 +19,9 @@ process.env.PATH = `${path.join(__dirname, 'node_modules', '.bin')}:${process.en
 loadWorkspaceEnv(__dirname)
 
 if (!repoHasExtapp(repoRoot)) {
-  throw new Error('modreq expects apps/extapp — product analytics (CWS → BQ) are required')
+  throw new Error(
+    'modreq expects apps/extapp — product analytics (CWS item → warehouse) are required'
+  )
 }
 
 if (!repoHasWebapp(repoRoot)) {
@@ -30,11 +31,7 @@ if (!repoHasWebapp(repoRoot)) {
 }
 
 export const productCwsDatasetId = extapp.datasetId
-export const cwsListingFunctionUrl = extapp.functionUrl
-export const cwsListingScheduleJobName = extapp.scheduleJobName
 export const cwsItemId = extapp.cwsItemId
-export const cwsEtlRunnerEmail = extapp.loaderSa.email
-export const cwsListingSchedule = pulumi.output('0 0 * * * Europe/Moscow')
 export const cwsDevConsoleUrl = CWS_DEV_CONSOLE_URL
 export const cwsListingUrl = cwsPublicListingUrl(cwsItemSlugValue, cwsItemIdValue)
 export const gscSiteUrl = webapp.gscSiteUrl

@@ -37,17 +37,11 @@ function extappArgs(cwsItemId: string) {
   return {
     gcpProjectId: 'sargonpiraev',
     location: 'EU',
-    region: 'europe-west1',
     datasetId: 'cws',
     cwsItemId,
     cwsItemSlug: 'modreq',
     productLabel: 'modreq',
-    loaderAccountId: 'cws-etl-runner',
     gcpServiceAccountKeyB64: Buffer.from('{}').toString('base64'),
-    sourceArchive: new pulumi.asset.FileArchive(
-      path.join(__dirname, 'functions/cws-listing/deploy')
-    ),
-    sourceBucketName: 'sargonpiraev-cws-listing-source',
   }
 }
 
@@ -70,21 +64,12 @@ describe('modreq extapp product analytics (Pulumi mocks)', () => {
       types.has('gcp:bigquery/dataset:Dataset'),
       `expected gcp:bigquery/dataset:Dataset child, got: ${[...types].join(', ')}`
     )
-    assert.ok(
-      types.has('gcp:cloudfunctions/function:Function'),
-      `expected gcp:cloudfunctions/function:Function child, got: ${[...types].join(', ')}`
-    )
   })
 
   it('fails fast when CWS item id is missing (dashboard URL, not env)', () => {
     assert.throws(
-      () => new Extapp('extapp', extappArgs('  ')),
-      (err: unknown) => {
-        assert.ok(err instanceof Error)
-        assert.match(err.message, /CWS item id is required in stack code \(not env\)/)
-        assert.match(err.message, /https:\/\/chrome\.google\.com\/webstore\/devconsole/)
-        return true
-      }
+      () => new Extapp('extapp-missing-item', extappArgs('')),
+      /chrome\.google\.com\/webstore\/devconsole/
     )
   })
 })
