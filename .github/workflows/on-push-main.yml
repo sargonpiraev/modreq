@@ -19,37 +19,8 @@ jobs:
       skip-audit: true
     secrets: inherit
 
-  playwright-image:
-    runs-on: ubuntu-latest
-    outputs:
-      image: ${{ steps.image.outputs.image }}
-    steps:
-      - uses: actions/checkout@v6
-      - id: image
-        run: |
-          set -euo pipefail
-          IMAGE=$(node -e '
-            const lock = require("./package-lock.json");
-            const key = Object.keys(lock.packages).find((k) =>
-              k.endsWith("node_modules/@playwright/test"),
-            );
-            if (!key) {
-              throw new Error("missing @playwright/test in package-lock.json");
-            }
-            process.stdout.write(
-              "mcr.microsoft.com/playwright:v" +
-                lock.packages[key].version +
-                "-jammy",
-            );
-          ')
-          echo "image=${IMAGE}" >> "$GITHUB_OUTPUT"
-
   test-playwright:
-    needs: playwright-image
     runs-on: ubuntu-latest
-    container:
-      image: ${{ needs.playwright-image.outputs.image }}
-      options: --user 1001
     steps:
       - uses: actions/checkout@v6
 
@@ -59,19 +30,16 @@ jobs:
         run: npm run test:spec
         env:
           CI: true
-          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
 
       - name: Playwright visual
         run: npm run test:spec:visual
         env:
           CI: true
-          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
 
       - name: Playwright perf
         run: npm run test:spec:perf
         env:
           CI: true
-          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
 
   # CWS publish: keep out of the CI gate so expired OAuth secrets don't fail lint/test.
   # Triggered separately via release-extension.yml.
