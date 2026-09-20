@@ -11,7 +11,7 @@ const appDir = path.dirname(fileURLToPath(import.meta.url))
 const isProd = env.NODE_ENV === 'production'
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  ...(isProd ? { output: 'export' as const } : {}),
   // Project site: https://sargonpiraev.github.io/modreq/
   basePath: isProd ? '/modreq' : '',
   trailingSlash: true,
